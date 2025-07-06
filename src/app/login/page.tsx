@@ -26,8 +26,9 @@ export default function LoginPage() {
       localStorage.setItem("tnt_user", JSON.stringify(data.user));
       alert(`Welcome, ${data.user.name}!`);
       router.push("/");
-    } catch (err: any) {
-      setError(err.message || "Login failed");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Login failed";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -64,7 +65,7 @@ export default function LoginPage() {
         </form>
         {error && <div style={{color:'#d32f2f',textAlign:'center',fontWeight:600}}>{error}</div>}
         <div style={{textAlign:'center',marginTop:'0.5rem',fontSize:'1.05rem'}}>
-          Don't have an account? <Link href="/signup" style={{color:'#f29927',fontWeight:600}}>Sign Up</Link>
+          Don&apos;t have an account? <Link href="/signup" style={{color:'#f29927',fontWeight:600}}>Sign Up</Link>
         </div>
       </div>
     </div>

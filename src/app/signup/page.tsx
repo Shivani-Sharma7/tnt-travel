@@ -58,8 +58,9 @@ export default function SignupPage() {
       if (!res.ok) throw new Error(data.error || "Signup failed");
       setSuccess("You have successfully created an account!");
       setTimeout(() => router.push("/login"), 1800);
-    } catch (err: any) {
-      setError(err.message || "Signup failed");
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : "Signup failed";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

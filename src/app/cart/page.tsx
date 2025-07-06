@@ -2,12 +2,10 @@
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 import { useState } from 'react';
-import LoginPopup from '@/components/LoginPopup';
 
 export default function CartPage() {
-  const { items, removeFromCart, getTotalPrice, clearCart, user, checkLoginStatus } = useCart();
+  const { items, removeFromCart, getTotalPrice, clearCart } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const handleCheckout = () => {
     setIsCheckingOut(true);
@@ -147,7 +145,7 @@ export default function CartPage() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* Cart Items */}
           <div style={{ flex: 1, padding: '2rem' }}>
-            {items.map((item, index) => (
+            {items.map((item) => (
               <div key={item.id} style={{
                 border: '2px solid #f0f0f0',
                 borderRadius: '1rem',

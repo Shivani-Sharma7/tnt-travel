@@ -2,7 +2,6 @@ import Image from "next/image";
 import ServiceCards from "../components/ServiceCards";
 import DestinationsSection from "../components/DestinationsSection";
 import GallerySection from "../components/GallerySection";
-import FooterEmailInput from "../components/FooterEmailInput";
 
 export const metadata = {
   title: "Divine yatra | Explore the World with Us",
@@ -13,38 +12,7 @@ export const metadata = {
   },
 };
 
-const featuredTours = [
-  {
-    title: "Majestic Mountains",
-    description: "Explore breathtaking mountain ranges with guided tours and adventure activities.",
-    image: "/globe.svg",
-  },
-  {
-    title: "Sunny Beaches",
-    description: "Relax on pristine beaches and enjoy water sports in exotic locations.",
-    image: "/window.svg",
-  },
-  {
-    title: "Cultural Cities",
-    description: "Discover the rich history and vibrant culture of world-famous cities.",
-    image: "/file.svg",
-  },
-];
 
-const testimonials = [
-  {
-    name: "Priya S.",
-    text: "Divine yatra made our honeymoon unforgettable! The tour guides were amazing and everything was perfectly organized.",
-  },
-  {
-    name: "Rahul M.",
-    text: "Best travel experience ever! The beach package was a dream come true. Highly recommend Divine yatra!",
-  },
-  {
-    name: "Aisha K.",
-    text: "Loved the cultural city tour. Learned so much and made new friends. Will book again!",
-  },
-];
 
 export default function Home() {
   return (
@@ -112,7 +80,7 @@ export default function Home() {
         <div style={{flex:'1 1 340px',minWidth:'300px',maxWidth:'420px'}}>
           <div style={{color:'#E2B89B',fontWeight:700,marginBottom:'0.5rem',letterSpacing:'1px'}}>OUR SERVICES</div>
           <h2 style={{fontSize:'2.2rem',fontWeight:800,marginBottom:'1.2rem',lineHeight:1.2}}>
-            It's Time To <span style={{color:'#E2B89B'}}>Travel</span> With<br/><span style={{color:'black',fontSize:'2.8rem',fontFamily:'fantasy',letterSpacing:'0.05em'}}>DIVINE YATRA</span>
+            It&apos;s Time To <span style={{color:'#E2B89B'}}>Travel</span> With<br/><span style={{color:'black',fontSize:'2.8rem',fontFamily:'fantasy',letterSpacing:'0.05em'}}>DIVINE YATRA</span>
           </h2>
         </div>
         {/* Right: Service Cards */}
@@ -162,7 +130,7 @@ export default function Home() {
         {/* Right Text/Features */}
         <div style={{flex:'1 1 400px',display:'flex',flexDirection:'column',gap:'1.5rem',alignItems:'flex-start',maxWidth:'420px'}}>
           <div style={{color:'#fff',fontWeight:700,marginBottom:'0.5rem',fontSize:'1.2rem'}}>About Us</div>
-          <h2 style={{fontSize:'2.7rem',fontWeight:800,marginBottom:'1.2rem',lineHeight:'1.1',color:'#7A6B57'}}>We're here <br/>to take you to your dream places</h2>
+          <h2 style={{fontSize:'2.7rem',fontWeight:800,marginBottom:'1.2rem',lineHeight:'1.1',color:'#7A6B57'}}>We&apos;re here <br/>to take you to your dream places</h2>
           <div style={{display:'flex',gap:'1.2rem',marginBottom:'1.2rem'}}>
             <div style={{display:'flex',alignItems:'center',gap:'0.7rem',background:'#fff6f1',padding:'1.2rem 2rem',borderRadius:'1.2rem',fontWeight:700,color:'#18122B',boxShadow:'0 2px 8px #f2992712'}}>
               <span style={{fontSize:'1.7rem',color:'#ff9900'}}>&#128205;</span>

@@ -58,7 +58,8 @@ export async function POST(req: Request) {
         pincode: user.pincode
       } 
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: 'Server error', details: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+    return NextResponse.json({ error: 'Server error', details: errorMessage }, { status: 500 });
   }
 } 
