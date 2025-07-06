@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-function LoginPageContent() {
-  const searchParams = useSearchParams();
+export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [emailOrMobile, setEmailOrMobile] = useState("");
   const [password, setPassword] = useState("");
@@ -23,13 +22,16 @@ function LoginPageContent() {
 
   // Check query parameter to set initial tab
   useEffect(() => {
-    const tab = searchParams.get('tab');
-    if (tab === 'signup') {
-      setIsLogin(false);
-    } else if (tab === 'login') {
-      setIsLogin(true);
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tab = urlParams.get('tab');
+      if (tab === 'signup') {
+        setIsLogin(false);
+      } else if (tab === 'login') {
+        setIsLogin(true);
+      }
     }
-  }, [searchParams]);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -377,30 +379,5 @@ function LoginPageContent() {
           </div>
         </div>
     </div>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      }}>
-        <div style={{
-          background: '#fff',
-          padding: '2rem',
-          borderRadius: '1rem',
-          boxShadow: '0 4px 32px rgba(0,0,0,0.1)'
-        }}>
-          Loading...
-        </div>
-      </div>
-    }>
-      <LoginPageContent />
-    </Suspense>
   );
 } 
