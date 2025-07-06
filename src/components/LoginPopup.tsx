@@ -150,13 +150,15 @@ export default function LoginPopup({ isOpen, onClose, onLoginSuccess }: LoginPop
             fontSize: '2rem',
             fontWeight: 800,
             color: '#22313f',
-            marginBottom: '0.5rem'
+            marginBottom: '0.5rem',
+            fontFamily: 'Poppins, sans-serif'
           }}>
             {isLoginMode ? 'Welcome Back!' : 'Create Account'}
           </h2>
           <p style={{
             color: '#666',
-            fontSize: '1rem'
+            fontSize: '1rem',
+            fontFamily: 'Poppins, sans-serif'
           }}>
             {isLoginMode 
               ? 'Please login to add items to your cart' 

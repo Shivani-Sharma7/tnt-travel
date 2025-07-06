@@ -22,6 +22,7 @@ export default function Navbar() {
   const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([new Date(), null]);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showFilter, setShowFilter] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { getItemCount } = useCart();
 
   const dateLabel = dateRange[0] && dateRange[1]
@@ -36,6 +37,16 @@ export default function Navbar() {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   function handleLogout() {
     localStorage.removeItem("tnt_user");
     setUser(null);
@@ -45,25 +56,25 @@ export default function Navbar() {
   // Hotels, Taxi, and Customize Trip page minimal navbar
   if (pathname === "/hotels" || pathname === "/taxi" || pathname === "/customize-trip") {
     return (
-      <nav style={{
+            <nav style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0.88rem 2.2rem',
-        background: 'linear-gradient(90deg, #A67B5B 70%, #d48166 100%)',
-        borderRadius: '1.5rem',
-        margin: '1.5rem auto 2.5rem auto',
-        maxWidth: '1200px',
-        boxShadow: '0 4px 24px rgba(166,123,91,0.10)',
-        position: 'sticky',
+        padding: '1rem 2rem',
+        background: isScrolled ? 'rgba(0, 0, 0, 0.8)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(15px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+        width: '100%',
+        position: 'fixed',
         top: 0,
+        left: 0,
         zIndex: 1000,
-        backdropFilter: 'blur(6px)',
-        border: '1.5px solid #e6e6e6',
+        transition: 'all 0.3s ease',
+ 
       }}>
         <div style={{display:'flex',alignItems:'center',gap:'0.7rem'}}>
           <Image src="/elements/logo.png" alt="TnT Logo" width={44} height={44} style={{borderRadius:'1rem',background:'#fff',padding:'0.2rem'}} />
-          <span style={{fontWeight:'bold',fontSize:'1.7rem',color:'#fff',letterSpacing:'-1px',fontFamily:'serif'}}>TnT Travels</span>
+          <span style={{fontWeight:'bold',fontSize:'1.7rem',color:'#fff',letterSpacing:'-1px',fontFamily:'Poppins, sans-serif'}}>TnT Travels</span>
         </div>
         <div style={{display:'flex',alignItems:'center',gap:'1.5rem'}}>
           <Link href="/" style={{color:'#fff',fontWeight:700,fontSize:'1.1rem'}}>Home</Link>
@@ -97,24 +108,25 @@ export default function Navbar() {
   // Conditionally add Home link if not on home page
   const linksToShow = pathname !== "/" ? [{ name: "Home", href: "/" }, ...navLinks] : navLinks;
   return (
-    <nav style={{
+        <nav style={{
       display:'flex',
       justifyContent:'space-between',
       alignItems:'center',
-      padding:'0.96rem 2.2rem',
-      background:'linear-gradient(90deg, #5C3D2E 60%, #f29927 100%)',
-      borderRadius:'1.5rem',
-      margin:'1.5rem auto 2.5rem auto',
-      maxWidth:'1200px',
-      boxShadow:'0 4px 24px rgba(34,49,63,0.10)',
-      position:'sticky',
+      padding:'1rem 2rem',
+      background: isScrolled ? 'rgba(0, 0, 0, 0.8)' : 'transparent',
+      backdropFilter: isScrolled ? 'blur(15px)' : 'none',
+      borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.1)' : 'none',
+      width:'100%',
+      position:'fixed',
       top:0,
+      left:0,
       zIndex:1000,
-      backdropFilter:'brown(5px)'
+      transition: 'all 0.3s ease',
+      
     }}>
       <div style={{display:'flex',alignItems:'center',gap:'0.7rem'}}>
         <Image src="/elements/logo.png" alt="TnT Logo" width={44} height={44} style={{borderRadius:'1rem',background:'#fff',padding:'0.2rem'}} />
-        <span style={{fontWeight:'bold',fontSize:'1.7rem',color:'#fff',letterSpacing:'-1px',fontFamily:'serif'}}>TnT Travels</span>
+        <span style={{fontWeight:'bold',fontSize:'1.7rem',color:'#fff',letterSpacing:'-1px',fontFamily:'Poppins, sans-serif'}}>TnT Travels</span>
       </div>
       {/* Hamburger for mobile */}
       <button
@@ -218,8 +230,8 @@ export default function Navbar() {
           </div>
         ) : (
           <>
-            <Link href="/login" style={{padding:'0.5rem 1.3rem',border:'2px solid #fff',borderRadius:'2rem',fontWeight:600,background:'transparent',color:'#fff',textDecoration:'none',transition:'background 0.2s, color 0.2s'}}>Login</Link>
-            <Link href="/signup" style={{padding:'0.5rem 1.3rem',border:'2px solid #f29927',borderRadius:'2rem',fontWeight:600,background:'#f29927',color:'#fff',textDecoration:'none',transition:'background 0.2s, color 0.2s'}}>Sign Up</Link>
+            <Link href="/login?tab=login" style={{padding:'0.5rem 1.3rem',border:'2px solid #fff',borderRadius:'2rem',fontWeight:600,background:'transparent',color:'#fff',textDecoration:'none',transition:'background 0.2s, color 0.2s'}}>Login</Link>
+            <Link href="/login?tab=signup" style={{padding:'0.5rem 1.3rem',border:'2px solid #f29927',borderRadius:'2rem',fontWeight:600,background:'#f29927',color:'#fff',textDecoration:'none',transition:'background 0.2s, color 0.2s'}}>Sign Up</Link>
           </>
         )}
       </div>
