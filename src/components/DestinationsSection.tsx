@@ -13,9 +13,9 @@ const destinations = [
     location: "Mathura & Vrindavan",
   },
   {
-    title: "Hut Stay",
-    image: "/activity/hutstay.jpg",
-    location: "Barsana",
+    title: "Darshan",
+    image: "/activity/premanandji.jpg",
+    location: "vrindavan",
   },
   {
     title: "Fun Ride",
@@ -27,8 +27,16 @@ const destinations = [
 export default function DestinationsSection() {
   const [hovered, setHovered] = useState<number | null>(null);
   return (
-    <section style={{background:'#faf7f2',padding:'3rem 3vw',maxWidth:'1500px',margin:'0 auto 2rem auto',borderRadius:'2rem'}}>
-      <h2 style={{textAlign:'center',fontSize:'2.5rem',fontWeight:800,color:'#8B5C3C',marginBottom:'2.5rem',fontFamily:'serif'}}>Discover Activities</h2>
+    <section style={{background:'#faf7f2',padding:'1rem 3vw',maxWidth:'1500px',margin:'0 auto 2rem auto',borderRadius:'2rem'}}>
+      <h2 style={{textAlign:'center',fontSize:'2.5rem',fontWeight:800,color:'#8B5C3C',margin:'1rem 0 0 0'}}>Discover Activities</h2>
+      <div style={{
+          width:'120px',
+          height:'5px',
+          background:'#E2C9A7',
+          margin:'1rem auto',
+          borderRadius:'3px',
+          marginBottom:'1.5rem',
+        }} />
       <div style={{display:'flex',gap:'2rem',justifyContent:'center'}}>
         {destinations.map((dest, idx) => (
           <div
@@ -56,6 +64,25 @@ export default function DestinationsSection() {
             </div>
           </div>
         ))}
+      </div>
+      <div style={{display:'flex',justifyContent:'center',marginTop:'2.5rem'}}>
+        <button
+          onClick={() => window.location.href = '/activities'}
+          style={{
+            background:'#8B5C3C',
+            color:'#fff',
+            fontWeight:700,
+            fontSize:'1.2rem',
+            padding:'0.9rem 2.5rem',
+            borderRadius:'1rem',
+            border:'none',
+            cursor:'pointer',
+            boxShadow:'0 2px 8px rgba(0,0,0,0.08)',
+            transition:'background 0.2s',
+          }}
+        >
+          View All Activities
+        </button>
       </div>
     </section>
   );

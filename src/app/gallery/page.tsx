@@ -3,172 +3,153 @@
 import React, { useState } from "react";
 
 const galleryItems = [
-  { type: "image", src: "/gallary/b737b9a5be89153ff2ba00b41529b007.jpg", shape: "landscape", title: "Manila City", place: "30 Place" },
-  { type: "image", src: "/gallary/e6e9b9fdfeff9f7df592ca9e6536c21b.jpg", shape: "portrait", title: "Turkey", place: "10 Place" },
-  { type: "image", src: "/gallary/ed970f7997ffab10b0b96cfb6b1e6bd9.jpg", shape: "landscape", title: "Los Angeles", place: "14 Place" },
-  { type: "image", src: "/gallary/ff62c4c95619babf96083fd0448a3f11.jpg", shape: "portrait", title: "Vietnam", place: "8 Place" },
-  { type: "image", src: "/gallary/87a6b9326df49157d500f18933bcc6ae.jpg", shape: "landscape", title: "China Tours", place: "12 Place" },
-  { type: "image", src: "/gallary/3ca59bddd9d0ec09d34355767fd73056.jpg", shape: "portrait", title: "Germany", place: "9 Place" },
-  { type: "image", src: "/gallary/DSC_0809.JPG", shape: "landscape", title: "Thailand", place: "16 Place" },
-  { type: "video", src: "/gallary/c01dd2c36e88bbe3f75855930126b1ba.mp4", shape: "portrait", title: "Adventure", place: "5 Place" },
-  { type: "video", src: "/gallary/8fd6ece89fcd44078ba3df0fcfa0f4d9.mp4", shape: "landscape", title: "Safari", place: "7 Place" },
-  { type: "video", src: "/gallary/767f11e02b2e6787809c473b2b30fd51.mp4", shape: "portrait", title: "Beach", place: "6 Place" },
-  { type: "video", src: "/gallary/6f4489eb8a925c8d33e12b824bbe2a67_720w.mp4", shape: "landscape", title: "Mountains", place: "11 Place" },
-  { type: "video", src: "/gallary/3ca0536d08eb76aaf2de48cf8b6b40c2_720w.mp4", shape: "portrait", title: "City Life", place: "13 Place" },
-  { type: "video", src: "/gallary/a0feb3fe182875ac3b916bbcb88ebd44_720w.mp4", shape: "landscape", title: "Desert", place: "4 Place" },
+  { type: "image", src: "/gallary/b737b9a5be89153ff2ba00b41529b007.jpg", title: "Wedding Couple" },
+  { type: "image", src: "/gallary/e6e9b9fdfeff9f7df592ca9e6536c21b.jpg", title: "Floral Bride" },
+  { type: "image", src: "/gallary/ed970f7997ffab10b0b96cfb6b1e6bd9.jpg", title: "Night Bride" },
+  { type: "image", src: "/gallary/ff62c4c95619babf96083fd0448a3f11.jpg", title: "Bridal Portrait" },
+  { type: "image", src: "/gallary/87a6b9326df49157d500f18933bcc6ae.jpg", title: "Wedding Lights" },
+  { type: "image", src: "/gallary/3ca59bddd9d0ec09d34355767fd73056.jpg", title: "Bride Closeup" },
+  { type: "image", src: "/gallary/DSC_0809.JPG", title: "Outdoor Bride" },
+  { type: "video", src: "/gallary/6f4489eb8a925c8d33e12b824bbe2a67_720w.mp4", title: "Wedding Video" },
 ];
 
-function getTitleFromFilename(filename: string) {
-  // Remove extension and underscores, capitalize words
-  return filename
-    .replace(/^.*[\\\/]/, "")
-    .replace(/\.[^/.]+$/, "")
-    .replace(/[_-]+/g, " ")
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-}
-
 export default function GalleryPage() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [modalIdx, setModalIdx] = useState<number | null>(null);
 
   return (
-    <main style={{ padding: 0, margin: 0 }}>
-      {/* Hero Section */}
-      <section style={{
-        position: 'relative',
-        width: '100vw',
-        minHeight: '300px',
-        background: 'url(/elements/gallarybg.jpg) center/cover no-repeat',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: '10px',
-        borderRadius: '0 0 10rem 0rem',
-        overflow: 'hidden',
+    <main style={{ background: '#f5f5f7', minHeight: '100vh', padding: 0, margin: 0 }}>
+      {/* Heading */}
+      <div style={{
+        width: '100%',
+        background: 'linear-gradient(90deg, #f8e7d2 0%, #e0c3fc 100%)',
+        padding: '6rem 0 1.5rem 0',
+        textAlign: 'center',
+        boxShadow: '0 4px 24px rgba(160, 120, 200, 0.10)',
+        borderBottomLeftRadius: '3rem',
+        borderBottomRightRadius: '3rem',
       }}>
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: 'rgba(35, 48, 60, 0.55)',
-          zIndex: 1
-        }} />
-        {/* Decorative orange accent */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '75%',
-          height: '35px',
-          background: '#f29927',
-          clipPath: 'polygon(0 0, 95% 0, 100% 100%, 0% 100%)',
-          zIndex: 2
-        }} />
-        <div style={{
-          position: 'relative',
-          zIndex: 3,
-          color: '#fff',
-          textAlign: 'center',
-          width: '100%',
-          maxWidth: '900px',
-          margin: '0 auto',
-        }}>
-          <h1 style={{ fontSize: '3rem', fontWeight: 800, marginBottom: '1.2rem', fontFamily: 'serif' }}>Gallery</h1>
-          <div style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: '0.5px' }}>
-            <span style={{ color: '#fff' }}>Home</span>
-            <span style={{ color: '#f29927', margin: '0 0.7em' }}> // </span>
-            <span style={{ color: '#f29927' }}>Gallery</span>
+        <span style={{ fontFamily: 'serif', fontStyle: 'italic', fontWeight: 700, fontSize: '4rem', letterSpacing: '2px', color: '#222' }}>Photography</span>
+        <div style={{ color: '#888', fontSize: '1.2rem', marginTop: 8 }}>A collection of our most beautiful moments</div>
+      </div>
+      {/* Masonry Grid */}
+      <div style={{
+        columnCount: 4,
+        columnGap: '1rem',
+        maxWidth: 1100,
+        margin: '1.5rem auto',
+        padding: '0 0.5rem',
+      }}>
+        {galleryItems.map((item, idx) => (
+          <div
+            key={item.src}
+            style={{
+              breakInside: 'avoid',
+              marginBottom: '1.5rem',
+              borderRadius: '1.2rem',
+              overflow: 'hidden',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.10)',
+              position: 'relative',
+              cursor: 'pointer',
+              background: '#fff',
+              transition: 'box-shadow 0.2s',
+            }}
+            onClick={() => setModalIdx(idx)}
+          >
+            {item.type === 'image' ? (
+              <img
+                src={item.src}
+                alt={item.title}
+                style={{ width: '100%', display: 'block', transition: 'transform 0.3s', objectFit: 'cover' }}
+              />
+            ) : (
+              <video
+                src={item.src}
+                style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                muted
+                loop
+                playsInline
+                onMouseOver={e => (e.currentTarget as HTMLVideoElement).play()}
+                onMouseOut={e => { (e.currentTarget as HTMLVideoElement).pause(); (e.currentTarget as HTMLVideoElement).currentTime = 0; }}
+              />
+            )}
+            {/* Floating Caption */}
+            <div style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(0deg,rgba(0,0,0,0.65) 80%,rgba(0,0,0,0.0) 100%)',
+              color: '#fff',
+              padding: '1.1rem 1.2rem 0.7rem 1.2rem',
+              fontWeight: 700,
+              fontSize: '1.2rem',
+              letterSpacing: '0.5px',
+              zIndex: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+              <span>{item.title}</span>
+              {item.type === 'video' && <span style={{ fontSize: 22, marginLeft: 8 }}>▶️</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Lightbox Modal */}
+      {modalIdx !== null && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.7)',
+            zIndex: 2000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onClick={() => setModalIdx(null)}
+        >
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: '1.5rem',
+              padding: '1.5rem',
+              maxWidth: 500,
+              width: '90vw',
+              boxShadow: '0 4px 32px rgba(0,0,0,0.15)',
+              position: 'relative',
+              textAlign: 'center',
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setModalIdx(null)}
+              style={{
+                position: 'absolute',
+                top: 12,
+                right: 18,
+                background: 'none',
+                border: 'none',
+                fontSize: 32,
+                color: '#888',
+                cursor: 'pointer',
+              }}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {galleryItems[modalIdx].type === 'image' ? (
+              <img src={galleryItems[modalIdx].src} alt={galleryItems[modalIdx].title} style={{ width: '100%', borderRadius: '1rem', marginBottom: '1rem' }} />
+            ) : (
+              <video src={galleryItems[modalIdx].src} style={{ width: '100%', borderRadius: '1rem', marginBottom: '1rem' }} controls autoPlay />
+            )}
+            <div style={{ fontWeight: 700, fontSize: '1.3rem', color: '#7A6B57', marginTop: 8 }}>{galleryItems[modalIdx].title}</div>
           </div>
         </div>
-      </section>
-
-      {/* Gallery Grid */}
-      <section style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-        gap: '2rem',
-        padding: '3rem 2vw',
-        maxWidth: '1400px',
-        margin: '0 auto',
-      }}>
-        {galleryItems.map((item, idx) => {
-          const aspectRatio = item.shape === 'portrait' ? '3/4' : '4/3';
-          return (
-            <div
-              key={item.src}
-              style={{
-                position: 'relative',
-                borderRadius: '1.5rem',
-                overflow: 'hidden',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.13)',
-                minHeight: 240,
-                minWidth: 0,
-                cursor: 'pointer',
-                transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
-                transform: hovered === idx ? 'scale(1.07)' : hovered === null ? 'scale(1)' : 'scale(0.95)',
-                zIndex: hovered === idx ? 2 : 1,
-                aspectRatio,
-              }}
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-            >
-              {item.type === "image" ? (
-                <img
-                  src={item.src}
-                  alt={item.title}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    aspectRatio,
-                    transition: 'filter 0.3s',
-                    filter: hovered === idx ? 'brightness(1.05)' : 'brightness(0.95)',
-                  }}
-                />
-              ) : (
-                <video
-                  src={item.src}
-                  muted
-                  loop
-                  playsInline
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    display: 'block',
-                    aspectRatio,
-                    transition: 'filter 0.3s',
-                    filter: hovered === idx ? 'brightness(1.05)' : 'brightness(0.95)',
-                  }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLVideoElement).play(); }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLVideoElement).pause(); e.currentTarget.currentTime = 0; }}
-                  controls={false}
-                />
-              )}
-              {/* Overlay */}
-              <div style={{
-                position: 'absolute',
-                left: 0,
-                bottom: 0,
-                width: '100%',
-                padding: '1.2rem 1.2rem 1.1rem 1.2rem',
-                background: 'linear-gradient(0deg, rgba(0,0,0,0.7) 70%, rgba(0,0,0,0.1) 100%)',
-                color: '#fff',
-                fontWeight: 700,
-                fontFamily: 'serif',
-                zIndex: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'flex-end',
-                minHeight: '5.5rem',
-              }}>
-                <span style={{ fontSize: '2rem', fontWeight: 800, marginBottom: '0.3rem', lineHeight: 1 }}>{item.title}</span>
-                <span style={{ color: '#f29927', fontSize: '1.2rem', fontWeight: 700, letterSpacing: '0.5px' }}>{item.place}</span>
-              </div>
-            </div>
-          );
-        })}
-      </section>
+      )}
     </main>
   );
 } 

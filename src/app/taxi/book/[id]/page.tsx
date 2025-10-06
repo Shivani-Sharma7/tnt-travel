@@ -8,10 +8,25 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 const mockCabs = [
   {
-    id: 'swift-dzire',
-    name: 'Swift Dzire',
+    id: 'auto-3',
+    name: 'Bajaj Auto Rickshaw',
+    type: 'Auto',
+    price: 12,
+    images: [
+      'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80',
+      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
+    ],
+    description: 'Affordable Bajaj Auto Rickshaw perfect for short city trips and local transportation.',
+    specifications: ['Engine: 150cc', 'Mileage: 35 km/l', 'Seating: 3 Passengers', 'Luggage: 1 Bag'],
+    amenities: ['Economical', 'Easy Navigation', 'Local Knowledge', 'Quick Service'],
+    rating: 4.2,
+  },
+  {
+    id: 'sedan-4',
+    name: 'Swift Dzire (AC)',
     type: 'Sedan',
-    price: 18,
+    price: 22,
     images: [
       'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
       'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80',
@@ -23,8 +38,8 @@ const mockCabs = [
     rating: 4.6,
   },
   {
-    id: 'toyota-innova',
-    name: 'Toyota Innova',
+    id: 'suv-6',
+    name: 'Maruti Ertiga (AC)',
     type: 'SUV',
     price: 28,
     images: [
@@ -32,25 +47,10 @@ const mockCabs = [
       'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
       'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
     ],
-    description: 'Premium Toyota Innova SUV offering luxury and comfort for group travel.',
-    specifications: ['Engine: 2.4L Diesel', 'Mileage: 18 km/l', 'Seating: 6 Passengers', 'Luggage: 4 Bags'],
-    amenities: ['Air Conditioning', 'Premium Music System', 'GPS Navigation', 'Child Seat Available', 'Leather Seats'],
-    rating: 4.8,
-  },
-  {
-    id: 'tempo-traveller',
-    name: 'Tempo Traveller',
-    type: 'Van',
-    price: 40,
-    images: [
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=facearea&w=400&q=80',
-    ],
-    description: 'Spacious Tempo Traveller van ideal for large groups, corporate events, and family gatherings.',
-    specifications: ['Engine: 2.5L Diesel', 'Mileage: 15 km/l', 'Seating: 12 Passengers', 'Luggage: 8 Bags'],
+    description: 'Spacious Maruti Ertiga SUV perfect for family trips and group travel.',
+    specifications: ['Engine: 1.5L Petrol', 'Mileage: 20 km/l', 'Seating: 6 Passengers', 'Luggage: 4 Bags'],
     amenities: ['Air Conditioning', 'Music System', 'GPS Navigation', 'Child Seat Available', 'Spacious Interior'],
-    rating: 4.4,
+    rating: 4.7,
   },
 ];
 
@@ -545,7 +545,7 @@ export default function TaxiBookingPage() {
                   flex: 1,
                   padding: '1rem',
                   borderRadius: '1rem',
-                  background: 'linear-gradient(90deg,#A67B5B 60%,#d48166 100%)',
+                  background: 'linear-gradient(90deg,#A67B5B 80%,#D8CAB8 20%)',
                   color: '#fff',
                   fontWeight: 700,
                   border: 'none',
@@ -576,4 +576,581 @@ export default function TaxiBookingPage() {
       />
     </main>
   );
+} 
+            </h2>
+
+
+
+            {/* Trip Details */}
+
+            <div style={{ marginBottom: '1.5rem' }}>
+
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#333', marginBottom: '0.8rem' }}>Trip Details</h3>
+
+              <input
+
+                type="text"
+
+                placeholder="Pickup Location *"
+
+                value={bookingForm.pickupLocation}
+
+                onChange={(e) => setBookingForm(prev => ({ ...prev, pickupLocation: e.target.value }))}
+
+                style={{
+
+                  width: '100%',
+
+                  padding: '0.8rem',
+
+                  border: '2px solid #ddd',
+
+                  borderRadius: '0.5rem',
+
+                  fontSize: '1rem',
+
+                  marginBottom: '1rem'
+
+                }}
+
+              />
+
+              <input
+
+                type="text"
+
+                placeholder="Drop Location *"
+
+                value={bookingForm.dropLocation}
+
+                onChange={(e) => setBookingForm(prev => ({ ...prev, dropLocation: e.target.value }))}
+
+                style={{
+
+                  width: '100%',
+
+                  padding: '0.8rem',
+
+                  border: '2px solid #ddd',
+
+                  borderRadius: '0.5rem',
+
+                  fontSize: '1rem',
+
+                  marginBottom: '1rem'
+
+                }}
+
+              />
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+
+                <div className="date-picker-container" style={{ position: 'relative' }}>
+
+                  <label style={{ display: 'block', fontSize: '0.9rem', color: '#666', marginBottom: '0.3rem' }}>Pickup Date *</label>
+
+                  <button
+
+                    onClick={() => setShowDatePicker(!showDatePicker)}
+
+                    style={{
+
+                      width: '100%',
+
+                      padding: '0.8rem',
+
+                      border: '2px solid #A67B5B',
+
+                      borderRadius: '0.5rem',
+
+                      background: '#fff',
+
+                      color: bookingForm.pickupDate ? '#A67B5B' : '#999',
+
+                      fontSize: '1rem',
+
+                      cursor: 'pointer',
+
+                      textAlign: 'left'
+
+                    }}
+
+                  >
+
+                    {bookingForm.pickupDate 
+
+                      ? new Date(bookingForm.pickupDate).toLocaleDateString()
+
+                      : 'Select pickup date'
+
+                    }
+
+                  </button>
+
+                  {showDatePicker && (
+
+                    <div style={{ 
+
+                      position: 'absolute', 
+
+                      zIndex: 1000, 
+
+                      background: '#fff', 
+
+                      borderRadius: '0.5rem', 
+
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+
+                      marginTop: '0.5rem',
+
+                      border: '2px solid #A67B5B'
+
+                    }}>
+
+                      <DatePicker
+
+                        selected={bookingForm.pickupDate ? new Date(bookingForm.pickupDate) : null}
+
+                        onChange={(date) => {
+
+                          setBookingForm(prev => ({ 
+
+                            ...prev, 
+
+                            pickupDate: date ? date.toISOString().split('T')[0] : '' 
+
+                          }));
+
+                          setShowDatePicker(false);
+
+                        }}
+
+                        minDate={new Date()}
+
+                        inline
+
+                        dateFormat="MMM dd, yyyy"
+
+                      />
+
+                    </div>
+
+                  )}
+
+                </div>
+
+                <div className="time-picker-container" style={{ position: 'relative' }}>
+
+                  <label style={{ display: 'block', fontSize: '0.9rem', color: '#666', marginBottom: '0.3rem' }}>Pickup Time *</label>
+
+                  <button
+
+                    onClick={() => setShowTimePicker(!showTimePicker)}
+
+                    style={{
+
+                      width: '100%',
+
+                      padding: '0.8rem',
+
+                      border: '2px solid #A67B5B',
+
+                      borderRadius: '0.5rem',
+
+                      background: '#fff',
+
+                      color: bookingForm.pickupTime ? '#A67B5B' : '#999',
+
+                      fontSize: '1rem',
+
+                      cursor: 'pointer',
+
+                      textAlign: 'left'
+
+                    }}
+
+                  >
+
+                    {bookingForm.pickupTime || 'Select pickup time'}
+
+                  </button>
+
+                  {showTimePicker && (
+
+                    <div style={{ 
+
+                      position: 'absolute', 
+
+                      zIndex: 1000, 
+
+                      background: '#fff', 
+
+                      borderRadius: '0.5rem', 
+
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+
+                      marginTop: '0.5rem',
+
+                      border: '2px solid #A67B5B',
+
+                      padding: '1rem'
+
+                    }}>
+
+                      <div style={{ 
+
+                        display: 'grid', 
+
+                        gridTemplateColumns: 'repeat(4, 1fr)', 
+
+                        gap: '0.5rem',
+
+                        maxHeight: '200px',
+
+                        overflowY: 'auto'
+
+                      }}>
+
+                        {Array.from({ length: 24 }, (_, i) => {
+
+                          const hour = i.toString().padStart(2, '0');
+
+                          return [
+
+                            `${hour}:00`,
+
+                            `${hour}:15`,
+
+                            `${hour}:30`,
+
+                            `${hour}:45`
+
+                          ];
+
+                        }).flat().map(time => (
+
+                          <button
+
+                            key={time}
+
+                            onClick={() => {
+
+                              setBookingForm(prev => ({ ...prev, pickupTime: time }));
+
+                              setShowTimePicker(false);
+
+                            }}
+
+                            style={{
+
+                              padding: '0.5rem',
+
+                              border: '1px solid #ddd',
+
+                              borderRadius: '0.3rem',
+
+                              background: bookingForm.pickupTime === time ? '#A67B5B' : '#fff',
+
+                              color: bookingForm.pickupTime === time ? '#fff' : '#333',
+
+                              cursor: 'pointer',
+
+                              fontSize: '0.9rem'
+
+                            }}
+
+                          >
+
+                            {time}
+
+                          </button>
+
+                        ))}
+
+                      </div>
+
+                    </div>
+
+                  )}
+
+                </div>
+
+              </div>
+
+              <div style={{ 
+
+                background: '#f9f6f2', 
+
+                padding: '0.8rem', 
+
+                borderRadius: '0.5rem',
+
+                fontSize: '0.9rem',
+
+                color: '#A67B5B',
+
+                textAlign: 'center'
+
+              }}>
+
+                {bookingForm.pickupDate && bookingForm.pickupTime 
+
+                  ? `Pickup on ${new Date(bookingForm.pickupDate).toLocaleDateString()} at ${bookingForm.pickupTime}`
+
+                  : 'Please select your pickup date and time'
+
+                }
+
+              </div>
+
+              <select
+
+                value={bookingForm.passengers}
+
+                onChange={(e) => setBookingForm(prev => ({ ...prev, passengers: Number(e.target.value) }))}
+
+                style={{
+
+                  width: '100%',
+
+                  padding: '0.8rem',
+
+                  border: '2px solid #ddd',
+
+                  borderRadius: '0.5rem',
+
+                  fontSize: '1rem'
+
+                }}
+
+              >
+
+                {[1, 2, 3, 4, 5, 6].map(num => (
+
+                  <option key={num} value={num}>{num} {num === 1 ? 'Passenger' : 'Passengers'}</option>
+
+                ))}
+
+              </select>
+
+            </div>
+
+
+
+            {/* Special Requests */}
+
+            <div style={{ marginBottom: '1.5rem' }}>
+
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: '#333', marginBottom: '0.8rem' }}>Special Requests (Optional)</h3>
+
+              <textarea
+
+                placeholder="Any special requests or preferences..."
+
+                value={bookingForm.specialRequests}
+
+                onChange={(e) => setBookingForm(prev => ({ ...prev, specialRequests: e.target.value }))}
+
+                style={{
+
+                  width: '100%',
+
+                  padding: '0.8rem',
+
+                  border: '2px solid #ddd',
+
+                  borderRadius: '0.5rem',
+
+                  fontSize: '1rem',
+
+                  minHeight: '80px',
+
+                  resize: 'vertical'
+
+                }}
+
+              />
+
+            </div>
+
+
+
+            {/* Price Summary */}
+
+            <div style={{ 
+
+              background: '#f9f6f2', 
+
+              padding: '1.5rem', 
+
+              borderRadius: '1rem', 
+
+              marginBottom: '1.5rem',
+
+              border: '2px solid #A67B5B'
+
+            }}>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+
+                <span>Rate per km:</span>
+
+                <span>₹{selectedCab.price}</span>
+
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+
+                <span>Estimated distance:</span>
+
+                <span>~25 km</span>
+
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid #ddd', paddingTop: '0.5rem' }}>
+
+                <span style={{ fontSize: '1.2rem', fontWeight: 600, color: '#333' }}>Estimated Total:</span>
+
+                <span style={{ fontSize: '1.5rem', fontWeight: 800, color: '#A67B5B' }}>
+
+                  ₹{calculateEstimatedPrice().toLocaleString()}
+
+                </span>
+
+              </div>
+
+              <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.5rem' }}>
+
+                *Final price will be calculated based on actual distance
+
+              </div>
+
+            </div>
+
+
+
+            {/* Action Buttons */}
+
+            <div style={{ display: 'flex', gap: '1rem' }}>
+
+              <button
+
+                onClick={handleAddToCart}
+
+                style={{
+
+                  flex: 1,
+
+                  padding: '1rem',
+
+                  borderRadius: '1rem',
+
+                  background: '#fff',
+
+                  color: '#A67B5B',
+
+                  fontWeight: 700,
+
+                  border: '2px solid #A67B5B',
+
+                  cursor: 'pointer',
+
+                  fontSize: '1rem',
+
+                  transition: 'transform 0.2s',
+
+                }}
+
+                onMouseEnter={(e) => {
+
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+
+                }}
+
+                onMouseLeave={(e) => {
+
+                  e.currentTarget.style.transform = 'translateY(0)';
+
+                }}
+
+              >
+
+                Add to Cart
+
+              </button>
+
+              <button
+
+                onClick={handleBooking}
+
+                style={{
+
+                  flex: 1,
+
+                  padding: '1rem',
+
+                  borderRadius: '1rem',
+
+                  background: 'linear-gradient(90deg,#A67B5B 80%,#D8CAB8 20%)',
+
+                  color: '#fff',
+
+                  fontWeight: 700,
+
+                  border: 'none',
+
+                  cursor: 'pointer',
+
+                  fontSize: '1.1rem',
+
+                  boxShadow: '0 2px 8px #A67B5B22',
+
+                  transition: 'transform 0.2s',
+
+                }}
+
+                onMouseEnter={(e) => {
+
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+
+                }}
+
+                onMouseLeave={(e) => {
+
+                  e.currentTarget.style.transform = 'translateY(0)';
+
+                }}
+
+              >
+
+                Book Now
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      
+
+      {/* Login Popup */}
+
+      <LoginPopup
+
+        isOpen={showLoginPopup}
+
+        onClose={() => setShowLoginPopup(false)}
+
+        onLoginSuccess={handleLoginSuccess}
+
+      />
+
+    </main>
+
+  );
+
 } 

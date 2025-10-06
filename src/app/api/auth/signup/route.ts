@@ -15,16 +15,15 @@ const userSchema = new mongoose.Schema({
   mobile: { type: String, unique: true },
   password: String,
   address: String,
-  city: String,
-  state: String,
-  pincode: String,
+  icon: String,
+  role: String,
 });
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 export async function POST(req: Request) {
   try {
-    const { name, email, mobile, password, address, city, state, pincode } = await req.json();
+    const { name, email, mobile, password, address, icon, role } = await req.json();
     if (!name || !email || !mobile || !password) {
       return NextResponse.json({ error: 'All fields are required.' }, { status: 400 });
     }
@@ -42,9 +41,8 @@ export async function POST(req: Request) {
       mobile, 
       password: hashed,
       address: address || '',
-      city: city || '',
-      state: state || '',
-      pincode: pincode || ''
+      icon: icon || '',
+      role: role || '',
     });
     return NextResponse.json({ 
       message: 'Signup successful', 
@@ -53,9 +51,8 @@ export async function POST(req: Request) {
         email: user.email, 
         mobile: user.mobile,
         address: user.address,
-        city: user.city,
-        state: user.state,
-        pincode: user.pincode
+        icon: user.icon,
+        role: user.role,
       } 
     });
   } catch (err: unknown) {

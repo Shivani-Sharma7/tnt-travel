@@ -112,7 +112,9 @@ export default function LoginPopup({ isOpen, onClose, onLoginSuccess }: LoginPop
         width: '100%',
         maxHeight: '90vh',
         overflow: 'auto',
-        position: 'relative'
+        position: 'relative',
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none'
       }} onClick={(e) => e.stopPropagation()}>
         {/* Close Button */}
         <button
@@ -378,7 +380,7 @@ export default function LoginPopup({ isOpen, onClose, onLoginSuccess }: LoginPop
             style={{
               padding: '1rem',
               borderRadius: '0.8rem',
-              background: 'linear-gradient(90deg,#f29927 60%,#e67e22 100%)',
+              background:'linear-gradient(90deg,#A67B5B 80%,#D8CAB8 20%)',
               color: '#fff',
               fontWeight: 700,
               fontSize: '1.1rem',

@@ -1,16 +1,12 @@
 import Image from "next/image";
 import ServiceCards from "../components/ServiceCards";
+import CancellationInfo from "../components/CancellationInfo";
+import SupportCall from "../components/SupportCall";
 import DestinationsSection from "../components/DestinationsSection";
 import GallerySection from "../components/GallerySection";
+import Footer from "../components/Footer";
 
-export const metadata = {
-  title: "Divine yatra | Explore the World with Us",
-  description: "Divine yatra offers unrivaled expertise for unique travel experiences. We're here to take you to your dream travels.",
-  openGraph: {
-    title: "Divine yatra | Explore the World with Us",
-    description: "Divine yatra offers unrivaled expertise for unique travel experiences. We're here to take you to your dream travels.",
-  },
-};
+
 
 
 
@@ -24,10 +20,10 @@ export default function Home() {
         justifyContent:'space-between',
         gap:'2rem',
         background:'#fdf6f3',
-        padding:'10rem 5rem 4rem 8rem',
-        maxWidth:'1600px',
-        margin:'-10rem auto 2rem auto',
-        borderRadius:'0 0 0 0rem',
+        padding:'12rem 5rem 4rem 8rem',
+        maxWidth:'calc(100% - 20px)',
+        margin:'0 10px 2rem 10px',
+        borderRadius:'2rem',
         position:'relative',
         overflow:'hidden',
         backgroundImage: 'url(/activity/ghat.jpg)',
@@ -73,194 +69,109 @@ export default function Home() {
         {/* Right: Image */}
         {/* (Images removed as requested) */}
       </section>
+      
+      {/* About Us Section (redesigned) */}
+      <section id="about-us" style={{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        gap:'3rem',
+        padding:'4rem 2rem 7rem 2rem',
+        maxWidth:'calc(100% - 20px)',
+        margin:'0 10px',
+        background:'#fdf6f3',
+        borderRadius:'2rem',
+        boxShadow:'0 2px 24px rgba(0,0,0,0.07)'
+      }}>
+        {/* Left: Illustration with circle */}
+        <div style={{flex:'auto',display:'flex',alignItems:'center',justifyContent:'center',position:'relative',height:'400px'}}>
+          <div style={{position:'absolute',width:'420px',height:'420px',borderRadius:'50%',background:'#f8e9d2',zIndex:0,left:'50%',top:'50%',transform:'translate(-50%,-50%)'}}></div>
+          <img src="/activity/about us.png" alt="Traveler" style={{width:'380px',height:'400px',objectFit:'contain',zIndex:4,position:'relative'}} />
+        </div>
+        {/* Right: Text and Stats */}
+        <div style={{flex:'1 1 600px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'2.2rem',textAlign:'center'}}>
+          <h2 style={{fontSize:'2.5rem',fontWeight:800,color:'#7A6B57',marginBottom:'0.5rem',lineHeight:1.1}}>We&apos;re here to take you to your<br/>dream places</h2>
+          <div style={{fontSize:'1rem',color:'#6d5b45',fontWeight:500,maxWidth:'700px',margin:'0 auto 1.5rem auto'}}>We offer personalized spiritual trips with fully customized activities, stays, cabs with unique experiences like traditional activity & stays. Our mission is to provide authentic travel experiences that connect you with the divine roots of India.</div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(3, 1fr)',gap:'2rem',width:'100%',maxWidth:'700px',position:'relative'}}>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+              18<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Tours Packs</span>
+            </div>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+              2<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Locations</span>
+            </div>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+              21<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Hotels</span>
+            </div>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+              7<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Activities</span>
+            </div>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',position:'relative'}}>
+              100%<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Free Cancellation</span>
+              <CancellationInfo />
+            </div>
+            <div style={{background:'linear-gradient(90deg,#e2b86b,#a98a5c)',borderRadius:'1.2rem',padding:'1rem 0',boxShadow:'0 2px 8px #f2992712',fontWeight:800,color:'#fff',fontSize:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',position:'relative'}}>
+              24/7<br/><span style={{fontSize:'1rem',fontWeight:600,marginTop:'0.3rem'}}>Support</span>
+              <SupportCall />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Our Services Section */}
-      <section id="our-services" style={{background:'#7A6B57',color:'#fff',padding:'2.4rem 3vw',maxWidth:'1400px',margin:'0 auto 2rem auto',borderRadius:'2rem',display:'flex',gap:'2.5rem',flexWrap:'wrap',alignItems:'center',justifyContent:'space-between'}}>
-        {/* Left: Text and Button */}
-        <div style={{flex:'1 1 340px',minWidth:'300px',maxWidth:'420px'}}>
-          <div style={{color:'#E2B89B',fontWeight:700,marginBottom:'0.5rem',letterSpacing:'1px'}}>OUR SERVICES</div>
-          <h2 style={{fontSize:'2.2rem',fontWeight:800,marginBottom:'1.2rem',lineHeight:1.2}}>
-            It&apos;s Time To <span style={{color:'#E2B89B'}}>Travel</span> With<br/><span style={{color:'black',fontSize:'2.8rem',fontFamily:'fantasy',letterSpacing:'0.05em'}}>DIVINE YATRA</span>
-          </h2>
+      <h2 style={{textAlign:'center',fontSize:'2.5rem',fontWeight:800,color:'#8B5C3C',margin:'1rem 0 0 0',marginTop:'80px'}}>Our Services</h2>
+      <div style={{
+          width:'120px',
+          height:'5px',
+          background:'#E2C9A7',
+          margin:'1rem auto',
+          borderRadius:'3px',
+          marginBottom:'1.5rem',
+        }} />
+      <section id="our-services" style={{
+        background:'#fdf6f1',
+        padding:'0',
+        maxWidth:'calc(100% - 20px)',
+        margin:'0 10px',
+        border:'none',
+        marginBottom:'4rem',
+        borderRadius:'2rem',
+        overflow:'hidden'
+      }}>
+        
+        <div style={{
+          maxWidth:'calc(100% - 20px)',
+          margin:'0 10px',
+          background:'#7A6B57',
+          display:'flex',
+          flexDirection:'row',
+          alignItems:'stretch',
+          overflow:'hidden',
+          boxShadow:'0 0 0 rgba(0,0,0,0.4)',
+          borderRadius:'2rem'
+        }}>
+          {/* Left: Text */}
+          <div style={{flex:'1 1 33%',minWidth:'340px',maxWidth:'600px',background:'#7A6B57',borderRadius:'48px 0 0 48px',display:'flex',alignItems:'center',justifyContent:'flex-start',padding:'2rem 1.5rem'}}>
+            
+            <div>
+              {/* <h2 style={{textAlign:'left',fontSize:'3.5rem',fontWeight:800,color:'#D8CAB8',marginBottom:'50px',fontFamily:'inherit'}}>Our Services</h2> */}
+              
+              <div style={{fontSize:'2.7rem',fontWeight:800,color:'#fff',marginBottom:'0.7rem',lineHeight:1.1}}>
+                It's Time To <span style={{color:'#f7b84b'}}>Travel</span><br/>With
+              </div>
+              <div style={{fontWeight:900,fontSize:'3rem',color:'#000',fontFamily:'inherit',letterSpacing:'0.01em',marginTop:'0.5rem'}}>DIVINE YATRA</div>
+            </div>
+          </div>
+          {/* Right: Service Cards */}
+          <div style={{flex:'2 1 67%',display:'flex',alignItems:'center',justifyContent:'center',background:'#fff',borderRadius:'58px 0 0 0',padding:'1rem 2rem 1rem 1rem'}}>
+            <ServiceCards />
+          </div>
         </div>
-        {/* Right: Service Cards */}
-        <ServiceCards />
       </section>
 
       <DestinationsSection />
 
-      {/* About Us Stats Section (inspired by screenshot) */}
-      <section id="about-us" style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'3rem',padding:'4rem 2rem',maxWidth:'1400px',margin:'0 auto 2rem auto',background:'#E2B89B',borderRadius:'2rem',boxShadow:'0 2px 24px rgba(0,0,0,0.07)'}}>
-        {/* Stats Left */}
-        <div style={{display:'flex',flexDirection:'column',gap:'2rem'}}>
-          <div style={{display:'flex',alignItems:'center',gap:'1.2rem',background:'#fff6f1',padding:'1.5rem 2.5rem',borderRadius:'1.2rem',boxShadow:'0 2px 8px #f2992712'}}>
-            <span style={{fontSize:'2.5rem',color:'#ff9900'}}>&#128188;</span>
-            <div>
-              <div style={{fontWeight:800,fontSize:'2rem',color:'#18122B'}}>18</div>
-              <div style={{color:'#6c6c6c',fontWeight:600}}>Tours Packs</div>
-            </div>
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:'1.2rem',background:'#fff6f1',padding:'1.5rem 2.5rem',borderRadius:'1.2rem',boxShadow:'0 2px 8px #f2992712'}}>
-            <span style={{fontSize:'2.5rem',color:'#ff9900'}}>&#127956;</span>
-            <div>
-              <div style={{fontWeight:800,fontSize:'2rem',color:'#18122B'}}>2</div>
-              <div style={{color:'#6c6c6c',fontWeight:600}}>Locations</div>
-            </div>
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:'1.2rem',background:'#fff6f1',padding:'1.5rem 2.5rem',borderRadius:'1.2rem',boxShadow:'0 2px 8px #f2992712'}}>
-            <span style={{fontSize:'2.5rem',color:'#ff9900'}}>&#128205;</span>
-            <div>
-              <div style={{fontWeight:800,fontSize:'2rem',color:'#18122B'}}>21</div>
-              <div style={{color:'#6c6c6c',fontWeight:600}}>Hotels</div>
-            </div>
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:'1.2rem',background:'#fff6f1',padding:'1.5rem 2.5rem',borderRadius:'1.2rem',boxShadow:'0 2px 8px #f2992712'}}>
-            <span style={{fontSize:'2.5rem',color:'#ff9900'}}>&#127965;</span>
-            <div>
-              <div style={{fontWeight:800,fontSize:'2rem',color:'#18122B'}}>7</div>
-              <div style={{color:'#6c6c6c',fontWeight:600}}>Activities</div>
-            </div>
-          </div>
-        </div>
-        {/* Center Image */}
-        <div style={{flex:'0 0 420px',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
-          <div style={{position:'absolute',width:'420px',height:'420px',borderRadius:'50%',background:'rgba(255,153,0,0.08)',zIndex:0}}></div>
-          <img src="/activity/about us.png" alt="Traveler" style={{width:'380px',height:'400px',zIndex:1,position:'relative',shapeOutside:'circle'}} />
-        </div>
-        {/* Right Text/Features */}
-        <div style={{flex:'1 1 400px',display:'flex',flexDirection:'column',gap:'1.5rem',alignItems:'flex-start',maxWidth:'420px'}}>
-          <div style={{color:'#fff',fontWeight:700,marginBottom:'0.5rem',fontSize:'1.2rem'}}>About Us</div>
-          <h2 style={{fontSize:'2.7rem',fontWeight:800,marginBottom:'1.2rem',lineHeight:'1.1',color:'#7A6B57'}}>We&apos;re here <br/>to take you to your dream places</h2>
-          <div style={{display:'flex',gap:'1.2rem',marginBottom:'1.2rem'}}>
-            <div style={{display:'flex',alignItems:'center',gap:'0.7rem',background:'#fff6f1',padding:'1.2rem 2rem',borderRadius:'1.2rem',fontWeight:700,color:'#18122B',boxShadow:'0 2px 8px #f2992712'}}>
-              <span style={{fontSize:'1.7rem',color:'#ff9900'}}>&#128205;</span>
-              Free Cancellation
-            </div>
-            <div style={{display:'flex',alignItems:'center',gap:'0.7rem',background:'#fff6f1',padding:'1.2rem 2rem',borderRadius:'1.2rem',fontWeight:700,color:'#18122B',boxShadow:'0 2px 8px #f2992712'}}>
-              <span style={{fontSize:'1.7rem',color:'#ff9900'}}>&#128222;</span>
-              24/7 Support
-            </div>
-          </div>
-          <div style={{color:'#6c6c6c',fontWeight:500,fontSize:'1.1rem',marginBottom:'1.2rem'}}>We offer personalized spiritual trips with fully customized activities, stays, cabs with unique experiences like traditional activity & stays.</div>
-          
-        </div>
-      </section>
-
-      {/* Banner Section: Need tour Expert? */}
-      <section style={{position:'relative',background:'#7A6B57',fontFamily:'initial',padding:'3.5rem 0 2.5rem 0',margin:'0 auto 2rem auto',maxWidth:'100vw',height:'17vh',overflow:'hidden'}}>
-        {/* Large faded background text */}
-        <span style={{
-          position:'absolute',
-          left:'70%',
-          top:'35%',
-          transform:'translate(-50%,-50%)',
-          fontSize:'7rem',
-          color:'rgba(255,255,255,0.25)',
-          fontWeight:900,
-          letterSpacing:'-0.05em',
-          zIndex:0,
-          userSelect:'none',
-          whiteSpace:'nowrap',
-        }}>Gallery</span>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',maxWidth:'1400px',margin:'0 auto',position:'relative',zIndex:1}}>
-          {/* Left: Banner text */}
-          <div style={{background:'fff',top:'12px',color:'#fff',fontWeight:800,height:'90%',fontSize:'2.5rem',padding:'1rem 4rem 1rem 1.8rem',borderRadius:'0 0 0 0'}}>
-            Clients Joureny
-
-          </div>
-          {/* Right: Button */}
-
-        </div>
-      </section>
-
       <GallerySection />
-
-      {/* Footer Section */}
-      <footer style={{
-        background: 'linear-gradient(120deg, #8B5C3C 40%, #7A6B57 100%)',
-        padding: '3rem 2vw 2rem 2vw',
-        marginTop: '6rem',
-        color: '#fff',
-        position: 'relative',
-        animation: 'fadeInFooter 1.2s cubic-bezier(.4,2,.6,1)',
-        boxShadow: '0 -4px 32px rgba(0,0,0,0.18)',
-        overflow: 'hidden',
-      }}>
-        <style>{`
-          @keyframes fadeInFooter {
-            from { opacity: 0; transform: translateY(60px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .footer-social {
-            border: 1.5px solid #6b7c5e;
-            border-radius: 8px;
-            padding: 0.4rem 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            background: #232b2b;
-            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
-            margin-right: 0.3rem;
-          }
-          .footer-social:hover {
-            background: #f29927;
-            color: #fff;
-            box-shadow: 0 2px 12px #f2992740;
-          }
-        `}</style>
-        
-        <div style={{maxWidth:'1400px',margin:'0 auto'}}>
-          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit, minmax(300px, 1fr))',gap:'3rem'}}>
-            
-            {/* Company Info */}
-            <div>
-              <div style={{display:'flex',alignItems:'center',gap:'0.7rem',marginBottom:'1.5rem'}}>
-                <span style={{fontSize:'2.7rem',color:'#f29927',fontWeight:900,filter:'drop-shadow(0 2px 8px #f2992740)'}}>&#x21bb;</span>
-                <span style={{fontWeight:900,fontSize:'2.2rem',fontFamily:'serif',letterSpacing:'-1px'}}>TnT<span style={{color:'#f29927'}}>Travel</span></span>
-              </div>
-              <div style={{marginBlock:'2rem',fontSize:'22px',color:'#bfcdb2'}}>Stay connected for future Trips.</div>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <div style={{fontWeight:800,fontSize:'1.5rem',fontFamily:'serif',marginBottom:'1rem',letterSpacing:'-1px',color:'#E2B89B'}}>Contact Us</div>
-              <div style={{height:'3px',width:'60px',background:'#E2B89B',marginBottom:'1.5rem'}}></div>
-              <div style={{display:'flex',flexDirection:'column',gap:'0.8rem',marginBottom:'1.5rem'}}>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}> devyanshbu12@gmail.com</span>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}> +91 7037753106</span>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}> mathura,up</span>
-              </div>
-              <div style={{display:'flex',gap:'0.7rem'}}>
-                <span className="footer-social">&#x1F465;</span>
-                <span className="footer-social">&#x25B6;</span>
-              </div>
-            </div>
-
-            {/* Services */}
-            <div>
-              <div style={{fontWeight:800,fontSize:'1.5rem',fontFamily:'serif',marginBottom:'1rem',letterSpacing:'-1px',color:'#E2B89B'}}>Our Services</div>
-              <div style={{height:'3px',width:'60px',background:'#E2B89B',marginBottom:'1.5rem'}}></div>
-              <div style={{display:'flex',flexDirection:'column',gap:'0.8rem'}}>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}>&#x276F; Guide Of The Year</span>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}>&#x276F; Creators</span>
-                <span style={{color:'#fff',fontSize:'1.1rem'}}>&#x276F; Travel Agents & Advisors</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Copyright Section */}
-        <div style={{
-          background: '#7A6B57',
-          padding: '1rem 2vw',
-          marginTop: '2rem',
-          textAlign: 'center',
-          borderTop: '1px solid rgba(226,184,155,0.3)'
-        }}>
-          <span style={{color: '#fff', fontSize: '1rem'}}>© 2025 TnT Travels. All rights reserved.</span>
-        </div>
-      </footer>
-      </main>
+      <Footer />
+    </main>
   );
 }

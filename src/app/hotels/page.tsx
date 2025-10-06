@@ -1,156 +1,185 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 
 const mockHotels = [
+  // Mathura
   {
-    name: 'The Grand Palace',
-    location: 'Jaipur, India',
-    price: 120,
+    id: 'krishna-inn-mathura',
+    name: 'Krishna Inn',
+    location: 'Mathura, India',
+    price: 95,
+    bedrooms: 1,
+    bathrooms: 1,
+    areaSqft: 340,
     images: [
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
+      'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=70',
     ],
     features: ['Free WiFi', 'Breakfast Included'],
-    rating: 4.7,
-    description: 'Experience luxury and comfort at The Grand Palace, located in the heart of Jaipur. This 5-star hotel offers world-class amenities and stunning views of the Pink City.',
-    amenities: ['Free WiFi', 'Breakfast Included', 'Swimming Pool', 'Spa & Wellness', 'Restaurant', 'Room Service', 'Air Conditioning', 'Free Parking'],
-    rooms: ['Deluxe Room', 'Suite', 'Family Room', 'Executive Room'],
-    policies: ['Check-in: 2:00 PM', 'Check-out: 11:00 AM', 'Free cancellation until 24 hours before arrival'],
-  },
-  {
-    name: 'Seaside Resort',
-    location: 'Goa, India',
-    price: 95,
-    images: [
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=facearea&w=400&q=80',
-    ],
-    features: ['Beach Access', 'Swimming Pool'],
     rating: 4.5,
-    description: 'Escape to paradise at Seaside Resort, where pristine beaches meet luxury accommodation. Perfect for a relaxing beach vacation in Goa.',
-    amenities: ['Beach Access', 'Swimming Pool', 'Beach Bar', 'Water Sports', 'Spa', 'Restaurant', 'Free WiFi', 'Air Conditioning'],
-    rooms: ['Beach View Room', 'Garden Villa', 'Pool Suite', 'Standard Room'],
-    policies: ['Check-in: 3:00 PM', 'Check-out: 12:00 PM', 'Free cancellation until 48 hours before arrival'],
+    description: 'Comfortable stay near Shri Krishna Janmabhoomi with easy access to local temples and markets.',
+    amenities: ['Free WiFi', 'Breakfast Included', 'Air Conditioning', 'Restaurant', 'Free Parking', 'Room Service'],
+    rooms: ['Standard Room', 'Deluxe Room', 'Family Room'],
+    policies: ['Check-in: 1:00 PM', 'Check-out: 11:00 AM', 'Free cancellation till 24 hours before arrival'],
   },
   {
-    name: 'Mountain View Inn',
-    location: 'Manali, India',
-    price: 80,
+    id: 'yamuna-retreat-mathura',
+    name: 'Yamuna Retreat',
+    location: 'Mathura, India',
+    price: 120,
+    bedrooms: 2,
+    bathrooms: 2,
+    areaSqft: 420,
     images: [
-      'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=facearea&w=400&q=80',
+      'https://images.unsplash.com/photo-1528909514045-2fa4ac7a08ba?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1501117716987-c8e3f1e3ecb4?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1520697222867-9e0b2f1f7a32?auto=format&fit=crop&w=800&q=70',
     ],
-    features: ['Mountain View', 'Free Parking'],
-    rating: 4.2,
-    description: 'Nestled in the Himalayas, Mountain View Inn offers breathtaking views and cozy accommodations perfect for adventure seekers and nature lovers.',
-    amenities: ['Mountain View', 'Free Parking', 'Bonfire', 'Adventure Tours', 'Restaurant', 'Free WiFi', 'Heating', 'Garden'],
-    rooms: ['Mountain View Room', 'Cottage', 'Deluxe Room', 'Family Suite'],
-    policies: ['Check-in: 1:00 PM', 'Check-out: 10:00 AM', 'Free cancellation until 72 hours before arrival'],
+    features: ['River View', 'Rooftop Dining'],
+    rating: 4.3,
+    description: 'Modern hotel with views of the Yamuna and quick rides to Vrindavan and Dwarkadheesh Temple.',
+    amenities: ['River View', 'Restaurant', 'Lift', 'Free WiFi', 'Air Conditioning', 'Parking'],
+    rooms: ['River View Room', 'Suite', 'Family Suite'],
+    policies: ['Check-in: 2:00 PM', 'Check-out: 12:00 PM'],
+  },
+  // Banaras (Varanasi)
+  {
+    id: 'ghat-view-banaras',
+    name: 'Ghat View Hotel',
+    location: 'Banaras, India',
+    price: 110,
+    bedrooms: 1,
+    bathrooms: 1,
+    areaSqft: 360,
+    images: [
+      'https://images.unsplash.com/photo-1519567241046-7f570eee3aa1?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1468495244123-6c6c332eeece?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=70',
+    ],
+    features: ['Near Ghat', 'Cafe'],
+    rating: 4.7,
+    description: 'Steps away from the ghats with a cozy cafe and evening aarti experience.',
+    amenities: ['Free WiFi', 'Cafe', 'Air Conditioning', 'Airport Transfer', 'City Tours'],
+    rooms: ['City View Room', 'Deluxe Room'],
+    policies: ['Check-in: 12:00 PM', 'Check-out: 11:00 AM'],
   },
   {
-    name: 'City Lights Hotel',
-    location: 'Mumbai, India',
-    price: 150,
+    id: 'sarnath-suites-banaras',
+    name: 'Sarnath Suites',
+    location: 'Banaras, India',
+    price: 145,
+    bedrooms: 2,
+    bathrooms: 2,
+    areaSqft: 500,
     images: [
-      'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=facearea&w=400&q=80',
-      'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=facearea&w=400&q=80',
+      'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=70',
+      'https://images.unsplash.com/photo-1551776235-dde6d4829808?auto=format&fit=crop&w=800&q=70',
     ],
-    features: ['Rooftop Bar', 'Gym Access'],
-    rating: 4.9,
-    description: 'Experience the vibrant energy of Mumbai from the comfort of City Lights Hotel. Modern amenities and stunning city views await you.',
-    amenities: ['Rooftop Bar', 'Gym Access', 'Business Center', 'Restaurant', 'Free WiFi', 'Air Conditioning', 'Valet Parking', 'Concierge'],
-    rooms: ['City View Room', 'Executive Suite', 'Business Room', 'Deluxe Room'],
-    policies: ['Check-in: 2:00 PM', 'Check-out: 11:00 AM', 'Free cancellation until 24 hours before arrival'],
+    features: ['Suite Rooms', 'Business Friendly'],
+    rating: 4.4,
+    description: 'Spacious suites close to Sarnath with business facilities and swift connectivity.',
+    amenities: ['Free WiFi', 'Restaurant', 'Gym', 'Conference Room', 'Parking'],
+    rooms: ['Executive Suite', 'Family Suite'],
+    policies: ['Check-in: 2:00 PM', 'Check-out: 12:00 PM'],
   },
 ];
 
+
+
 const cardStyle = {
-  background: '#fff',
-  borderRadius: '1.5rem',
-  boxShadow: '0 2px 16px rgba(122,107,87,0.13)',
+  background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
+  borderRadius: '1.2rem',
+  boxShadow: '0 6px 24px rgba(122,107,87,0.15)',
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'stretch',
-  minHeight: 400,
+  gap: 7,
+  minHeight: 315,
   position: 'relative',
-  transition: 'transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s',
+  minWidth: 300,
+  maxWidth: 450,
+  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
   cursor: 'pointer',
-  animation: 'fadeInHotelCard 0.7s cubic-bezier(.4,2,.6,1)',
+  animation: 'fadeInHotelCard 0.8s cubic-bezier(.4,2,.6,1)',
+  border: '1px solid rgba(255,255,255,0.8)',
 } as React.CSSProperties;
 
 const imgStyle = {
-  width: '90%',
-  height: 170,
+  width: '100%',
+  height: 140,
   objectFit: 'cover',
-  borderRadius: '1rem',
-  marginBlock: '1rem',
+  borderRadius: '0.8rem',
+  marginBlock: '0.7rem',
   marginInline: 'auto',
-  transition: 'transform 0.35s cubic-bezier(1,5,1,1)',
-  boxShadow: '0 2px 12px #7A6B5722',
+  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+  boxShadow: '0 3px 14px rgba(0,0,0,0.1)',
+  filter: 'brightness(1.05)',
 } as React.CSSProperties;
 
 const chipStyle = {
   display: 'inline-block',
-  background: '#E2B89B',
+  background: 'linear-gradient(135deg, #E2B89B 0%, #D8CAB8 100%)',
   color: '#7A6B57',
   fontWeight: 700,
-  fontSize: '0.98rem',
-  borderRadius: '1rem',
+  fontSize: '0.85rem',
+  borderRadius: '0.8rem',
   padding: '0.3rem 1rem',
-  marginBottom: 10,
-  marginTop: 2,
+  marginBottom: 7,
+  marginTop: 1,
   letterSpacing: '0.2px',
-};
+  boxShadow: '0 2px 6px rgba(226,184,155,0.3)',
+} as React.CSSProperties;
 
 const priceBadgeStyle = {
   position: 'absolute',
-  top: 18,
-  right: 18,
-  background: '#f29927',
+  top: 13,
+  right: 13,
+  background: 'linear-gradient(135deg, #f29927 0%, #f4a261 100%)',
   color: '#fff',
   fontWeight: 800,
-  fontSize: '1.1rem',
-  borderRadius: '1.2rem',
-  padding: '0.5rem 1.2rem',
-  boxShadow: '0 2px 8px #f2992740',
+  fontSize: '0.95rem',
+  borderRadius: '1rem',
+  padding: '0.4rem 1rem',
+  boxShadow: '0 3px 12px rgba(242, 153, 39, 0.4)',
   zIndex: 2,
+  backdropFilter: 'blur(10px)',
 } as React.CSSProperties;
 
 const btnStyle = {
-  padding: '0.5rem 0',
+  padding: '0.4rem 0.8rem',
   borderRadius: '0.8rem',
-  background: 'linear-gradient(90deg,#7A6B57 60%,#f29927 100%)',
+  background: 'linear-gradient(135deg, #A67B5B 0%, #C19A6B 100%)',
   color: '#fff',
   fontWeight: 700,
   border: 'none',
   cursor: 'pointer',
-  fontSize: '1rem',
-  marginTop: 12,
-  boxShadow: '0 2px 8px #7A6B5722',
+  fontSize: '0.9rem',
+  marginTop: 8,
+  boxShadow: '0 3px 12px rgba(166,123,91,0.3)',
   letterSpacing: '0.3px',
-  transition: 'background 0.2s, transform 0.2s',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
   flex: 1,
   minWidth: 0,
   maxWidth: '100%',
   display: 'block',
-};
+  position: 'relative',
+  overflow: 'hidden',
+} as React.CSSProperties;
+
 const outlineBtnStyle = {
   ...btnStyle,
-  background: '#fff',
+  background: 'linear-gradient(135deg, #fff 0%, #f8f9fa 100%)',
   color: '#7A6B57',
-  border: '2px solid #7A6B57',
-  boxShadow: 'none',
-  transition: 'all 0.2s ease',
+  border: '2px solid #A67B5B',
+  boxShadow: '0 4px 16px rgba(166,123,91,0.15)',
+  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
 };
+
+
 
 function StarBlock({ rating }: { rating: number }) {
   const fullStars = Math.floor(rating);
@@ -280,144 +309,16 @@ function HotelDetailsModal({ hotel, isOpen, onClose }: { hotel: any; isOpen: boo
           ×
         </button>
 
-        {/* Image Carousel */}
-        <div style={{ position: 'relative', height: '300px', overflow: 'hidden', borderRadius: '1.5rem 1.5rem 0 0' }}>
-          <img
-            src={hotel.images[currentImageIndex]}
-            alt={hotel.name}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-          />
-          {/* Image Navigation */}
-          <div style={{ position: 'absolute', bottom: '1rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '0.5rem' }}>
-            {hotel.images.map((_: string, index: number) => (
-              <button
-                key={index}
-                onClick={() => setCurrentImageIndex(index)}
-                style={{
-                  width: '12px',
-                  height: '12px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  background: currentImageIndex === index ? '#7A6B57' : 'rgba(255, 255, 255, 0.6)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                }}
-              />
+        {/* Images Collection */}
+        <div style={{ padding: '1rem 1.5rem 1.5rem 1.5rem', background:'#fff', maxHeight: '85vh', overflow: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+          <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fit, minmax(220px, 1fr))', gap:16 }}>
+            {hotel.images.map((src: string, index: number) => (
+              <img key={`grid-${index}`} src={src} alt={`${hotel.name}-${index+1}`} style={{ width:'100%', height:200, objectFit:'cover', borderRadius:'1rem', boxShadow:'0 2px 12px rgba(0,0,0,0.08)' }} />
             ))}
-          </div>
-          {/* Price Badge */}
-          <div style={{
-            position: 'absolute',
-            top: '1rem',
-            right: '1rem',
-            background: '#f29927',
-            color: '#fff',
-            fontWeight: 800,
-            fontSize: '1.2rem',
-            borderRadius: '1.2rem',
-            padding: '0.5rem 1.2rem',
-            boxShadow: '0 2px 8px rgba(242, 153, 39, 0.4)',
-          }}>
-            ₹{hotel.price}/night
-          </div>
         </div>
-
-        {/* Content */}
-        <div style={{ padding: '2rem' }}>
-          {/* Header */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-              <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#7A6B57', margin: 0 }}>{hotel.name}</h2>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <StarBlock rating={hotel.rating} />
-                <span style={{ fontWeight: 700, color: '#222', fontSize: '1.1rem' }}>{hotel.rating}</span>
-              </div>
-            </div>
-            <div style={{ color: '#666', fontSize: '1.1rem', fontWeight: 500 }}>{hotel.location}</div>
-          </div>
-
-          {/* Description */}
-          <div style={{ marginBottom: '2rem' }}>
-            <p style={{ color: '#555', lineHeight: '1.6', fontSize: '1rem', margin: 0 }}>{hotel.description}</p>
-          </div>
-
-          {/* Amenities */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#7A6B57', marginBottom: '1rem' }}>Amenities</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem' }}>
-              {hotel.amenities.map((amenity: string, index: number) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#666' }}>
-                  <span style={{ color: '#f29927', fontSize: '1.1em' }}>✓</span>
-                  {amenity}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Room Types */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#7A6B57', marginBottom: '1rem' }}>Room Types</h3>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              {hotel.rooms.map((room: string, index: number) => (
-                <span
-                  key={index}
-                  style={{
-                    background: '#E2B89B',
-                    color: '#7A6B57',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '1rem',
-                    fontSize: '0.9rem',
-                    fontWeight: 600,
-                  }}
-                >
-                  {room}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* Policies */}
-          <div style={{ marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#7A6B57', marginBottom: '1rem' }}>Hotel Policies</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {hotel.policies.map((policy: string, index: number) => (
-                <div key={index} style={{ color: '#666', fontSize: '0.95rem' }}>
-                  <span style={{ color: '#f29927', marginRight: '0.5rem' }}>•</span>
-                  {policy}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
-            <button
-              style={{
-                ...btnStyle,
-                flex: 1,
-                padding: '1rem',
-                fontSize: '1.1rem',
-              }}
-            >
-              Book Now
-            </button>
-            <button
-              style={{
-                ...outlineBtnStyle,
-                flex: 1,
-                padding: '1rem',
-                fontSize: '1.1rem',
-              }}
-              onClick={onClose}
-            >
-              Close
-            </button>
-          </div>
-        </div>
+      </div>
+      <div style={{ textAlign: 'center', padding: '0 1.5rem 1.5rem 1.5rem', background:'#fff' }}>
+        <div style={{ letterSpacing: '2px', fontWeight: 900, color: '#222', textTransform: 'uppercase' }}>ARE YOU READY TO STAY WITH US?</div>
       </div>
 
       <style>{`
@@ -430,9 +331,12 @@ function HotelDetailsModal({ hotel, isOpen, onClose }: { hotel: any; isOpen: boo
           to { transform: scale(1) translateY(0); opacity: 1; }
         }
       `}</style>
+      </div>
     </div>
   );
 }
+
+
 
 export default function HotelsPage() {
   const router = useRouter();
@@ -446,6 +350,24 @@ export default function HotelsPage() {
   const [filter, setFilter] = useState('');
   const [selectedHotel, setSelectedHotel] = useState<any>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<string>('');
+  const hotelGridRef = useRef<HTMLDivElement>(null);
+
+  // City -> popular landmark and distance (fallbacks included)
+  const getNearestLandmark = (hotel: any) => {
+    const cityKey = ((hotel.location || '').split(',')[0] || '').trim().toLowerCase();
+    const mapping: Record<string, { city: string; landmark: string; km: number }> = {
+      jaipur: { city: 'Jaipur', landmark: 'Hawa Mahal', km: 2.0 },
+      goa: { city: 'Goa', landmark: 'Calangute Beach', km: 1.2 },
+      manali: { city: 'Manali', landmark: 'Hadimba Devi Temple', km: 2.3 },
+      mumbai: { city: 'Mumbai', landmark: 'Gateway of India', km: 3.1 },
+      mathura: { city: 'Mathura', landmark: 'Sri Krishna Janmabhoomi', km: 4.9 },
+      vrindavan: { city: 'Vrindavan', landmark: 'Banke Bihari Temple', km: 2.1 },
+    };
+    const fallbackCity = (hotel.location || '').split(',')[0] || 'City';
+    return mapping[cityKey] || { city: fallbackCity, landmark: 'Popular Landmark', km: 1.0 };
+  };
 
   const handleViewDetails = (hotel: any) => {
     console.log('View Details clicked for:', hotel.name);
@@ -458,91 +380,388 @@ export default function HotelsPage() {
     setSelectedHotel(null);
   };
 
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(selectedCategory === category ? '' : category);
+    setTimeout(() => {
+      hotelGridRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100); // slight delay to allow filter to apply
+  };
+
+  const handleLocationClick = (loc: string) => {
+    setSelectedLocation(selectedLocation === loc ? '' : loc);
+    setTimeout(() => {
+      hotelGridRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
-    <main style={{padding:'3rem 2vw',maxWidth:'1200px',margin:'0 auto'}}>
-      <h1 style={{fontSize:'2.5rem',fontWeight:800,marginBottom:'2rem',color:'#7A6B57'}}>Find Hotels</h1>
-      <style>{`
-        @keyframes fadeInHotelCard {
-          from { opacity: 0; transform: translateY(40px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
+    <main style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #e9e4df 0%, #f5f3ef 100%)',
+      padding: '3vw 0',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }}>
       <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-        gap: '2rem',
-        marginTop: '2rem',
+        maxWidth: 1200,
+        width: '95%',
+        background: '#fff',
+        borderRadius: '2.5rem',
+        boxShadow: '0 8px 32px rgba(60,40,20,0.10)',
+        padding: '3rem 2rem 6rem 2rem',
+        margin: '2rem 0 0 0',
+        position: 'relative',
+        zIndex: 2,
       }}>
-        {mockHotels.map((hotel, idx) => (
-          <div
-            key={idx}
-            style={cardStyle}
-            onMouseEnter={e => {
-              (e.currentTarget as HTMLDivElement).style.transform = 'scale(1.045) translateY(-6px)';
-              (e.currentTarget as HTMLDivElement).style.boxShadow = '0 8px 32px #7A6B5733';
-            }}
-            onMouseLeave={e => {
-              (e.currentTarget as HTMLDivElement).style.transform = 'scale(1)';
-              (e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 16px rgba(122,107,87,0.13)';
-            }}
-          >
-            <HotelImageCarousel images={hotel.images} />
-            <span style={priceBadgeStyle}>₹{hotel.price}/night</span>
-            <div style={{padding: '1.2rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
-              <div>
-                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:2}}>
-                  <div style={{fontWeight: 800, fontSize: '1.3rem', color: '#7A6B57'}}>{hotel.name}</div>
-                </div>
-                <div style={{display:'flex',alignItems:'center',justifyContent:'flex-end',marginBottom:6}}>
-                  <StarBlock rating={hotel.rating} />
-                  <span style={{fontWeight:700,color:'#222',fontSize:'1.08rem',marginLeft:6}}>{hotel.rating}</span>
-                </div>
-                <span style={chipStyle}>{hotel.location}</span>
-                <ul style={{margin: '8px 0 0 0', padding: 0, listStyle: 'none', color: '#666', fontSize: '1rem', fontWeight: 500}}>
-                  {hotel.features.map((feature, i) => (
-                    <li key={i} style={{display: 'flex', alignItems: 'center', gap: 6, marginBottom: 2}}>
-                      <span style={{color: '#f29927', fontSize: '1.1em'}}>•</span> {feature}
-                    </li>
-                  ))}
-                </ul>
+        {/* Hero Section */}
+        <section
+          style={{
+            position: 'relative',
+            borderRadius: '1.5rem',
+            overflow: 'hidden',
+            height: 300,
+            marginBottom: '2.5rem',
+            boxShadow: '0 16px 48px rgba(0,0,0,0.18)'
+          }}
+        >
+          <img
+            src={'/activity/hotels.jpg'}
+            alt="Hotels hero"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%)' }} />
+          <div style={{ position: 'absolute', left: '2rem', top: '50%', transform: 'translateY(-50%)', color: '#fff' }}>
+            <h1 style={{ fontSize: '2.8rem', fontWeight: 900, margin: 0, letterSpacing: '-1px' }}>Find Perfect Stay for you</h1>
+            <p style={{ marginTop: '0.6rem', fontSize: '1.1rem', maxWidth: 560, lineHeight: 1.5 }}>
+              Handpicked luxury, traditional homestays, and budget-friendly hotels across India. Book with confidence.
+            </p>
+          </div>
+        </section>
+        
+        <section style={{
+          width: '100%',
+          margin: '0 0 3rem auto',
+        }}>
+          {/* Location Selector - like taxi segmented control */}
+          <div style={{
+            width: '100%',
+            margin: '0 auto 1.2rem auto',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '1rem',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              display: 'flex',
+              background: '#333',
+              borderRadius: '1rem',
+              padding: '0.3rem',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              border: '2px solid #333'
+            }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.8rem 1.5rem',
+                  background: selectedLocation === 'Mathura' ? '#fff' : 'transparent',
+                  color: selectedLocation === 'Mathura' ? '#333' : '#fff',
+                  borderRadius: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  minWidth: '170px',
+                  justifyContent: 'center'
+                }}
+                onClick={() => handleLocationClick('Mathura')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>🛕</span>
+                <span>Mathura</span>
               </div>
-              <div>
-                <div style={{display:'flex',gap:'0.7rem',marginTop:12}}>
-                  <button 
-                    style={outlineBtnStyle}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleViewDetails(hotel);
-                    }}
-                    onMouseDown={(e) => e.stopPropagation()}
-                  >
-                    View Details
-                  </button>
-                  <button 
-                    style={btnStyle}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      router.push(`/hotels/book/${hotel.name.toLowerCase().replace(/\s+/g, '-')}`);
-                    }}
-                    onMouseDown={(e) => e.stopPropagation()}
-                  >
-                    Book Now
-                  </button>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.8rem 1.5rem',
+                  background: selectedLocation === 'Banaras' ? '#fff' : 'transparent',
+                  color: selectedLocation === 'Banaras' ? '#333' : '#fff',
+                  borderRadius: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  minWidth: '170px',
+                  justifyContent: 'center',
+                  position: 'relative'
+                }}
+                onClick={() => handleLocationClick('Banaras')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>🌅</span>
+                <span>Banaras</span>
+                <div style={{
+                  position: 'absolute',
+                  top: '-8px',
+                  right: '-8px',
+                  background: '#f29927',
+                  color: '#fff',
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  padding: '0.2rem 0.4rem',
+                  borderRadius: '0.4rem',
+                  whiteSpace: 'nowrap',
+                  boxShadow: '0 2px 6px rgba(242, 153, 39, 0.4)',
+                  zIndex: 10
+                }}>
+                  Coming Soon
                 </div>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+          <div style={{
+            width: '100%',
+            margin: '0 auto 1.2rem auto',
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '2rem',
+            alignItems: 'center'
+          }}>
+            <div style={{
+              display: 'flex',
+              background: '#333',
+              borderRadius: '1rem',
+              padding: '0.3rem',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.15)',
+              border: '2px solid #333'
+            }}>
+              <div
+            style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.8rem 1.5rem',
+                  background: selectedCategory === 'traditional' ? '#fff' : 'transparent',
+                  color: selectedCategory === 'traditional' ? '#333' : '#fff',
+                  borderRadius: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  minWidth: '180px',
+                  justifyContent: 'center'
+                }}
+                onClick={() => handleCategoryClick('traditional')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>🏛️</span>
+                <span>Traditional</span>
+              </div>
 
-      {/* Hotel Details Modal */}
-      {selectedHotel && (
-        <HotelDetailsModal
-          hotel={selectedHotel}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
-      )}
-    </main>
+              <div
+                style={{
+              display: 'flex',
+              alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.8rem 1.5rem',
+                  background: selectedCategory === 'luxury' ? '#fff' : 'transparent',
+                  color: selectedCategory === 'luxury' ? '#333' : '#fff',
+                  borderRadius: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  minWidth: '150px',
+              justifyContent: 'center'
+                }}
+                onClick={() => handleCategoryClick('luxury')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>🏖️</span>
+                <span>Luxury</span>
+            </div>
+
+              <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.8rem 1.5rem',
+                  background: selectedCategory === 'budget' ? '#fff' : 'transparent',
+                  color: selectedCategory === 'budget' ? '#333' : '#fff',
+                  borderRadius: '0.7rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  fontWeight: 600,
+                  fontSize: '1rem',
+                  minWidth: '180px',
+              justifyContent: 'center'
+                }}
+                onClick={() => handleCategoryClick('budget')}
+              >
+                <span style={{ fontSize: '1.2rem' }}>💰</span>
+                <span>Budget</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Descriptions */}
+          
+        </section>
+        {/* Filtered hotel cards grid below */}
+        
+        <style>{`
+          @keyframes fadeInHotelCard {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes hotelBookShake { 0%{transform:translateX(0)} 20%{transform:translateX(-2px)} 40%{transform:translateX(2px)} 60%{transform:translateX(-2px)} 80%{transform:translateX(2px)} 100%{transform:translateX(0)} }
+        `}</style>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '1.5rem',
+          marginTop: '2rem',
+        }} ref={hotelGridRef}>
+          {(mockHotels
+            .filter(hotel => {
+              if (!selectedLocation) return true;
+              const city = (hotel.location || '').split(',')[0];
+              return city.toLowerCase() === selectedLocation.toLowerCase();
+            })
+            .filter(hotel => {
+              if (!selectedCategory) return true;
+              if (selectedCategory === 'luxury') return hotel.price >= 120;
+              if (selectedCategory === 'budget') return hotel.price < 100;
+              if (selectedCategory === 'traditional') return /traditional|homestay|inn/i.test(hotel.name + hotel.description + hotel.location);
+              return true;
+            })
+          ).map((hotel, idx) => {
+            const roomTitle = (hotel.rooms && hotel.rooms[0]) || hotel.name;
+            const bedCount = (hotel as any).bedrooms ?? 1;
+            const bathCount = (hotel as any).bathrooms ?? 1;
+            const sqft = (hotel as any).areaSqft ?? (300 + idx * 100);
+            // Removed category pill/tag
+            return (
+            <div
+              key={idx}
+              style={{
+                  background: '#fff',
+                  borderRadius: '1.2rem',
+                  boxShadow: '0 2px 16px rgba(0,0,0,0.08)',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+                  filter: (hotel.location || '').toLowerCase().includes('banaras') ? 'grayscale(100%)' : 'none',
+                  opacity: (hotel.location || '').toLowerCase().includes('banaras') ? 0.7 : 1,
+              }}
+              onMouseEnter={e => {
+                  if (!(hotel.location || '').toLowerCase().includes('banaras')) {
+                    (e.currentTarget as HTMLDivElement).style.transform = 'translateY(-4px)';
+                    (e.currentTarget as HTMLDivElement).style.boxShadow = '0 12px 32px rgba(0,0,0,0.12)';
+                    const btn = e.currentTarget.querySelector('button[data-book="true"]') as HTMLButtonElement;
+                    if (btn) {
+                      btn.style.animation = 'hotelBookShake 0.45s ease-in-out 1';
+                      setTimeout(() => { if (btn) btn.style.animation = ''; }, 500);
+                    }
+                  }
+              }}
+              onMouseLeave={e => {
+                  (e.currentTarget as HTMLDivElement).style.transform = 'translateY(0)';
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = '0 2px 16px rgba(0,0,0,0.08)';
+                }}
+                onClick={() => !(hotel.location || '').toLowerCase().includes('banaras') && handleViewDetails(hotel)}
+              >
+                <div style={{ position: 'relative', height: 170, background:'#f9f6f2' }}>
+                  <img src={hotel.images[0]} alt={hotel.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ padding: '1rem 1.2rem' }}>
+                  <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom: 8 }}>
+                    <div>
+                      <div style={{ color:'#1e6f5c', fontWeight:800, fontSize:'1.25rem' }}>₹{hotel.price} <span style={{color:'#888',fontWeight:500,fontSize:'0.9rem'}}> /night</span></div>
+                    </div>
+                    <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+                      <span style={{ color:'#f29927' }}>★</span>
+                      <span style={{ fontWeight:700, color:'#444' }}>{hotel.rating.toFixed(1)}</span>
+                    </div>
+                  </div>
+                  <div style={{ fontWeight:700, color:'#222', marginBottom: 6 }}>{roomTitle}</div>
+                  {(() => {
+                    const info = getNearestLandmark(hotel);
+                    return (
+                      <div style={{ color:'#444', fontSize:'0.9rem', marginBottom: 10 }}>
+                        <span style={{ color:'#1e6f5c', fontWeight:700 }}>{info.city}</span>
+                        <span style={{ color:'#999', margin:'0 6px' }}>|</span>
+                        <span>{info.km.toFixed(1)} km drive to {info.landmark}</span>
+                      </div>
+                    );
+                  })()}
+                  <div style={{ display:'flex', alignItems:'center', gap:16, color:'#666', fontSize:'0.9rem' }}>
+                    <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+                      <span>🛏️</span>
+                      <span>{bedCount} Bed</span>
+                    </div>
+                    <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+                      <span>🛁</span>
+                      <span>{bathCount} Bath</span>
+                  </div>
+                    <div style={{ display:'flex', alignItems:'center', gap:6 }}>
+                      <span>◼️</span>
+                      <span>{sqft} sqft</span>
+                      </div>
+                  </div>
+                  <div style={{ display:'flex', justifyContent:'flex-end', marginTop: 12 }}>
+                    <button
+                      style={{
+                        background: (hotel.location || '').toLowerCase().includes('banaras') 
+                          ? 'linear-gradient(135deg, #ccc, #999)' 
+                          : 'linear-gradient(135deg, #f29927, #e67e22)',
+                      color: '#fff',
+                      border: 'none',
+                        borderRadius: '0.8rem',
+                        padding: '0.6rem 1rem',
+                      fontWeight: 700,
+                      cursor: (hotel.location || '').toLowerCase().includes('banaras') ? 'not-allowed' : 'pointer',
+                        boxShadow: (hotel.location || '').toLowerCase().includes('banaras') 
+                          ? '0 2px 8px rgba(153,153,153,0.35)' 
+                          : '0 2px 8px rgba(242,153,39,0.35)',
+                        opacity: (hotel.location || '').toLowerCase().includes('banaras') ? 0.6 : 1
+                      }}
+                      data-book={"true"}
+                      disabled={(hotel.location || '').toLowerCase().includes('banaras')}
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        if (!(hotel.location || '').toLowerCase().includes('banaras')) {
+                          router.push(`/hotels/book/${hotel.id}`); 
+                        }
+                      }}
+                      onMouseEnter={(e) => { 
+                        if (!(hotel.location || '').toLowerCase().includes('banaras')) {
+                          e.currentTarget.style.transform = 'translateY(-2px)'; 
+                        }
+                      }}
+                      onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+                    >
+                      {(hotel.location || '').toLowerCase().includes('banaras') ? 'Coming Soon' : 'Book Now'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+
+
+        {/* Hotel Details Modal */}
+        {selectedHotel && (
+          <HotelDetailsModal
+            hotel={selectedHotel}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
+        )}
+      </div>
+      </main>
   );
 }

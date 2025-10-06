@@ -27,16 +27,35 @@ export interface CartItem {
   };
 }
 
+interface Order {
+  orderId: string;
+  transactionId: string;
+  customerName: string;
+  customerMobile: string;
+  preferredDay?: string;
+  preferredTime?: string;
+  paymentMethod: string;
+  amountPaid: number;
+  totalAmount: number;
+  isAdvancePayment: boolean;
+  items: CartItem[];
+  status: 'confirmed' | 'processing' | 'completed' | 'cancelled';
+  orderDate: string;
+  orderTime: string;
+  comments?: string;
+}
+
 interface CartContextType {
   items: CartItem[];
-  user: { name: string } | null;
+  user: { name: string; email: string; mobile: string } | null;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
   getTotalPrice: () => number;
   getItemCount: () => number;
   checkLoginStatus: () => boolean;
-  updateUser: (user: { name: string } | null) => void;
+  updateUser: (user: { name: string; email: string; mobile: string } | null) => void;
+  saveOrder: (order: Order) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -51,7 +70,7 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [user, setUser] = useState<{ name: string } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; mobile: string } | null>(null);
 
   // Load cart and user from localStorage on mount
   useEffect(() => {
@@ -117,12 +136,23 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return user !== null;
   };
 
-  const updateUser = (newUser: { name: string } | null) => {
+  const updateUser = (newUser: { name: string; email: string; mobile: string } | null) => {
     setUser(newUser);
     if (newUser) {
       localStorage.setItem('tnt_user', JSON.stringify(newUser));
     } else {
       localStorage.removeItem('tnt_user');
+    }
+  };
+
+  const saveOrder = (order: Order) => {
+    try {
+      const existingOrders = localStorage.getItem('tnt_order_history');
+      const orders = existingOrders ? JSON.parse(existingOrders) : [];
+      orders.push(order);
+      localStorage.setItem('tnt_order_history', JSON.stringify(orders));
+    } catch (error) {
+      console.error('Error saving order:', error);
     }
   };
 
@@ -136,7 +166,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       getTotalPrice,
       getItemCount,
       checkLoginStatus,
-      updateUser
+      updateUser,
+      saveOrder
     }}>
       {children}
     </CartContext.Provider>

@@ -64,103 +64,130 @@ export default function GallerySection() {
   // Don't render until mounted to prevent hydration issues
   if (!mounted) {
     return (
-      <section style={{maxWidth:'1400px',margin:'0 auto 2rem auto',padding:'0 3vw',display:'flex',gap:'2rem',minHeight:480,position:'relative'}}>
-        <div style={{flex:'1 1 55%',minWidth:320,display:'flex',alignItems:'stretch'}}>
-          <div style={{width:'95%',height:'405px',overflow:'hidden',borderRadius:'2rem',boxShadow:'0 2px 16px rgba(0,0,0,0.08)',background:'#f0f0f0'}} />
+      <>
+        {/* Section Title */}
+        <div style={{width:'100%',textAlign:'center',zIndex:20}}>
+          <h2 style={{
+            fontSize:'3rem',
+            fontWeight:800,
+            color:'#8B5C3C', // brownish
+            marginBottom:'0.5rem',
+            letterSpacing:'.5px',
+            fontFamily:'inherit',
+          }}>Clients Journey</h2>
+          <div style={{
+            width:'90px',
+            height:'5px',
+            background:'#E2C9A7',
+            margin:'0 auto',
+            borderRadius:'3px',
+            marginBottom:'1.5rem',
+          }} />
         </div>
-        <div style={{flex:'1 1 50%',display:'grid',gridTemplateColumns:'1fr 1fr',gridTemplateRows:'repeat(3, 1fr)',gap:'1.5rem',minWidth:320}}>
-          {Array(6).fill(0).map((_, i) => (
-            <div key={i} style={{width:'100%',height:'195px',overflow:'hidden',borderRadius:'1.5rem',boxShadow:'0 2px 8px rgba(0,0,0,0.06)',background:'#f0f0f0'}} />
-          ))}
-        </div>
-      </section>
+        <section style={{maxWidth:'1400px',margin:'0 auto 2rem auto',padding:'0 3vw',display:'flex',gap:'2rem',minHeight:480}}>
+          <div style={{flex:'1 1 55%',minWidth:320,display:'flex',alignItems:'stretch'}}>
+            <div style={{width:'95%',height:'405px',overflow:'hidden',borderRadius:'2rem',boxShadow:'0 2px 16px rgba(0,0,0,0.08)',background:'#f0f0f0'}} />
+          </div>
+          <div style={{flex:'1 1 50%',display:'grid',gridTemplateColumns:'1fr 1fr',gridTemplateRows:'repeat(3, 1fr)',gap:'1.5rem',minWidth:320}}>
+            {Array(6).fill(0).map((_, i) => (
+              <div key={i} style={{width:'100%',height:'195px',overflow:'hidden',borderRadius:'1.5rem',boxShadow:'0 2px 8px rgba(0,0,0,0.06)',background:'#f0f0f0'}} />
+            ))}
+          </div>
+        </section>
+      </>
     );
   }
 
   return (
-    <section style={{maxWidth:'1400px',margin:'0 auto 2rem auto',padding:'0 3vw',display:'flex',gap:'2rem',minHeight:480,position:'relative'}}>
-      {/* Airplane image at top left */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          zIndex: 10,
-          transition: 'transform 0.3s cubic-bezier(.4,2,.6,1)',
-          transform: planeHovered ? 'scale(1.2)' : 'scale(1)',
-        }}
-        onMouseEnter={() => setPlaneHovered(true)}
-        onMouseLeave={() => setPlaneHovered(false)}
-      >
-        <Image src="/elements/airplain.png" alt="Airplane" width={90} height={90} style={{display:'block',width:'90px',height:'90px'}} />
+    <>
+      {/* Section Title */}
+      <div style={{width:'100%',textAlign:'center',zIndex:20}}>
+        <h2 style={{
+          fontSize:'2.5rem',
+          fontWeight:800,
+          color:'#8B5C3C', // brownish
+          margin:'4rem 0 0 0',
+          letterSpacing:'.5px',
+          fontFamily:'inherit',
+        }}>Clients Journey</h2>
+        <div style={{
+          width:'120px',
+          height:'5px',
+          background:'#E2C9A7',
+          margin:'0 auto',
+          borderRadius:'3px',
+          marginBottom:'1.5rem',
+        }} />
       </div>
-      {/* Left: Main Item (landscape) */}
-      <div style={{flex:'1 1 55%',minWidth:320,display:'flex',alignItems:'stretch'}}>
-        <div
-          style={{
-            width:'95%',
-            height:'405px',
-            overflow:'hidden',
-            borderRadius:'2rem',
-            boxShadow:'0 2px 16px rgba(0,0,0,0.08)',
-            transition:'transform 0.3s',
-            transform: hoveredIdx === 0 ? 'scale(1.2)' : hoveredIdx !== null ? 'scale(0.85)' : 'scale(1)'
-          }}
-          onMouseEnter={() => setHoveredIdx(0)}
-          onMouseLeave={() => setHoveredIdx(null)}
-        >
-          {items[0].type === 'image' ? (
-            <img src={items[0].src} alt={items[0].alt} style={{width:'100%',height:'100%',objectFit:'cover'}} />
-          ) : (
-            <video
-              ref={mainRef}
-              src={items[0].src}
-              poster={items[0].poster}
-              muted
-              style={{width:'100%',height:'100%',objectFit:'cover',background:'#000',borderRadius:'2rem'}}
-            />
-          )}
-        </div>
-      </div>
-      {/* Right: Grid with portrait and landscape */}
-      <div style={{flex:'1 1 50%',display:'grid',gridTemplateColumns:'1fr 1fr',gridTemplateRows:'repeat(3, 1fr)',gap:'1.5rem',minWidth:320}}>
-        {items.slice(1).map((item, idx) => (
+      <section style={{maxWidth:'1400px',margin:'0 auto 2rem auto',padding:'0 3vw',display:'flex',gap:'2rem',minHeight:480}}>
+        {/* Left: Main Item (landscape) */}
+        <div style={{flex:'1 1 55%',minWidth:320,display:'flex',alignItems:'stretch'}}>
           <div
-            key={item.src}
             style={{
-              position:'relative',
-              width:'100%',
-              height:'195px',
+              width:'95%',
+              height:'405px',
               overflow:'hidden',
-              borderRadius:'1.5rem',
-              boxShadow:'0 2px 8px rgba(0,0,0,0.06)',
+              borderRadius:'2rem',
+              boxShadow:'0 2px 16px rgba(0,0,0,0.08)',
               transition:'transform 0.3s',
-              transform: hoveredIdx === idx+1 ? 'scale(1.2)' : hoveredIdx !== null ? 'scale(0.85)' : 'scale(1)',
-              zIndex: hoveredIdx === idx+1 ? 2 : 1
+              transform: hoveredIdx === 0 ? 'scale(1.2)' : hoveredIdx !== null ? 'scale(0.85)' : 'scale(1)'
             }}
-            onMouseEnter={() => setHoveredIdx(idx+1)}
+            onMouseEnter={() => setHoveredIdx(0)}
             onMouseLeave={() => setHoveredIdx(null)}
           >
-            {item.type === 'image' ? (
-              <img src={item.src} alt={item.alt} style={{width:'100%',height:'100%',objectFit:'cover'}} />
+            {items[0].type === 'image' ? (
+              <img src={items[0].src} alt={items[0].alt} style={{width:'100%',height:'100%',objectFit:'cover'}} />
             ) : (
               <video
-                ref={el => { gridRefs.current[idx] = el; }}
-                src={item.src}
-                poster={item.poster}
+                ref={mainRef}
+                src={items[0].src}
+                poster={items[0].poster}
                 muted
-                style={{width:'100%',height:'100%',objectFit:'cover',background:'#000',borderRadius:'1.5rem'}}
+                style={{width:'100%',height:'100%',objectFit:'cover',background:'#000',borderRadius:'2rem'}}
               />
             )}
-            {/* Example overlay for the third item */}
-            {idx === 2 && (
-              <div style={{position:'absolute',top:0,left:0,right:0,bottom:0,background:'rgba(255,255,255,0.25)',borderRadius:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1.2rem'}}>
-                <button onClick={() => router.push('/gallery')} style={{background:'rgba(255,255,255,0.50)',color:'#fff',fontWeight:700,fontSize:'1.1rem',padding:'0.7rem 2.2rem',borderRadius:'0.7rem',border:'none',cursor:'pointer'}}>Watch More</button>
-              </div>
-            )}
           </div>
-        ))}
-      </div>
-    </section>
+        </div>
+        {/* Right: Grid with portrait and landscape */}
+        <div style={{flex:'1 1 50%',display:'grid',gridTemplateColumns:'1fr 1fr',gridTemplateRows:'repeat(3, 1fr)',gap:'1.5rem',minWidth:320}}>
+          {items.slice(1).map((item, idx) => (
+            <div
+              key={item.src}
+              style={{
+                position:'relative',
+                width:'100%',
+                height:'195px',
+                overflow:'hidden',
+                borderRadius:'1.5rem',
+                boxShadow:'0 2px 8px rgba(0,0,0,0.06)',
+                transition:'transform 0.3s',
+                transform: hoveredIdx === idx+1 ? 'scale(1.2)' : hoveredIdx !== null ? 'scale(0.85)' : 'scale(1)',
+                zIndex: hoveredIdx === idx+1 ? 2 : 1
+              }}
+              onMouseEnter={() => setHoveredIdx(idx+1)}
+              onMouseLeave={() => setHoveredIdx(null)}
+            >
+              {item.type === 'image' ? (
+                <img src={item.src} alt={item.alt} style={{width:'100%',height:'100%',objectFit:'cover'}} />
+              ) : (
+                <video
+                  ref={el => { gridRefs.current[idx] = el; }}
+                  src={item.src}
+                  poster={item.poster}
+                  muted
+                  style={{width:'100%',height:'100%',objectFit:'cover',background:'#000',borderRadius:'1.5rem'}}
+                />
+              )}
+              {/* Example overlay for the third item */}
+              {idx === 2 && (
+                <div style={{position:'absolute',top:0,left:0,right:0,bottom:0,background:'rgba(255,255,255,0.25)',borderRadius:'1.5rem',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:'1.2rem'}}>
+                  <button onClick={() => router.push('/gallery')} style={{background:'rgba(255,255,255,0.50)',color:'#fff',fontWeight:700,fontSize:'1.1rem',padding:'0.7rem 2.2rem',borderRadius:'0.7rem',border:'none',cursor:'pointer'}}>Watch More</button>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
   );
 } 
